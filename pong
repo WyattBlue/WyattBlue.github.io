@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+div{position:absolute;height:30px;background:#DDD;}
+#spacer{
+width:98%;
+background:0;
+margin-top:500px;
+text-align:center;}
+#tail{
+    position:fixed;
+    width:100%;
+    background:0;
+    margin-top:1000px;
+}
+body{font-family:verdana}
+#g{
+    height:500px;
+    width:500px;
+    margin-bottom:20px;
+    background:#000;}
+    
+#p{width:100px;margin-top:440px}
+#b{width:30px}
+#t{color:#DDD;font-size:35px}
+#i{
+    margin-top:120px;
+    background:0;
+    width:500px;
+    text-align:center;
+}
+h2{font-size:20px;line-height:1em;margin-left:2%;}
+f{color:red}
+g{color:#090}
+j{color:#909}
+</style></head><body>
+
+<div id="g"></div>
+<div id="b"></div>
+<div id="p"></div>
+<div id="i">
+   	<p id="t"></p>
+    <button onclick="start()">Restart Game</button>
+</div>
+<div id="spacer">
+<h2>Use <g>Arrow Keys</g> to Move.</h2>
+<h2>Avoid Ball When <f>Red</f>.</h2>
+<h2>Hold <j>Space</j> for 2x Speed, 2x Points.</h2>
+<script>
+let p=document.getElementById('p'); //paddle
+let b=document.getElementById('b'); //ball
+let g=document.getElementById('g'); //game background
+let t=document.getElementById('t'); //text
+let i=document.getElementById('i'); //restart button
+let rightArrow=leftArrow=space=0; //input booleans
+let c; //centers screen
+let z='px'; //shorthand for pixels
+start(); //defines variables
+
+//Run Game Code
+main();
+function main() {
+	if(!gameEnd){
+      tick++;
+      if(tick % 30==0 && tick>=0){
+          xacel+=xacel>0?0.1:-0.1;
+          yacel+=yacel>0?0.1:-0.1;
+      }
+
+      pX+=7*(rightArrow-leftArrow);
+
+      ballX+=xacel;
+      ballY+=yacel;
+
+      if(pX>400)pX=400;
+      if(pX<0)pX=0;
+      if(yacel>19)yacel=19;
+
+      if(ballY>410 && ballY<430) { //paddle physics
+          if(ballX>=pX-30 && ballX<=pX+100){
+              y();
+              ballY=410;
+              if(leftArrow)xacel-=1; //paddle influence
+              if(rightArrow)xacel+=1;
+              if(ballState)gameEnd=1;
+              else{hit+=space?2:1;}
+          }
+      }
+      function y(){
+          yacel=-yacel;
+          xacel+=(Math.random()<0.5)?-0.2:0.2;
+      }
+
+      function x(){
+          xacel=-xacel;
+          yacel+=(Math.random()<0.5)?-0.2:0.2;
+      }
+      if(ballY<0){ //ceiling
+
+          if(ballState==0 && tick>50*7){ballState=1;tick=0;}
+          else if(tick>50*5 && ballState==1){ballState=0;tick=0;}
+          ballY=0;y()}
+      if(ballY>470){ //floor
+          if(ballState==0){gameEnd=1;}
+          ballY=470;y()
+      }
+      if(ballX<0){ballX=0;x()}
+      if(ballX>470){ballX=470;x()}
+    }
+    c=window.innerWidth/2-250;
+    p.style.left=pX+c+z;
+    b.style.left=Math.ceil(ballX)+c+z;
+    b.style.marginTop=Math.ceil(ballY)+z;    
+    g.style.left=c+z;
+    i.style.marginLeft=c+z;
+    if(ballState){b.style.background="red";}
+    else{b.style.background="#DDD";}
+    
+    if(gameEnd){
+    	t.innerHTML="You Got "+hit+" Hits!";
+        i.style.display="block";
+        g.style.cursor="";
+        b.style.cursor="";
+        p.style.cursor="";
+        
+    }
+    else {
+        i.style.display="none";
+        g.style.cursor="none";
+        b.style.cursor="none";
+        p.style.cursor="none";
+    }
+
+    window.onkeyup=function(e){
+    if(e.which==39)rightArrow=0;
+    if(e.which==37)leftArrow=0
+    if(e.which==32)space=0;}
+	window.onkeydown=function(e){
+	if(e.which==39)rightArrow=1;
+    if(e.which==37)leftArrow=1;
+    if(e.which==32)space=1;}
+    
+   	setTimeout(main,space?10:20);
+}  
+
+function start() {
+	ballState=hit=gameEnd=xacel=0;
+	ballX=240;
+	ballY=170;
+	yacel=3;
+	tick=-300;
+    pX=208;
+}
+
+</script>
+</body>
+</html>
