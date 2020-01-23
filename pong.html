@@ -1,43 +1,43 @@
-layout: page
-title: "Pong"
-permalink: /pong
 <!doctype html>
 <html>
 <head>
-<style>
-div{position:absolute;height:30px;background:#DDD;}
-#spacer{
-width:98%;
-background:0;
-margin-top:500px;
-text-align:center;}
-#tail{
-    position:fixed;
-    width:100%;
-    background:0;
-    margin-top:1000px;
-}
-body{font-family:verdana}
-#g{
-    height:500px;
-    width:500px;
-    margin-bottom:20px;
-    background:#000;}
-    
-#p{width:100px;margin-top:440px}
-#b{width:30px}
-#t{color:#DDD;font-size:35px}
-#i{
-    margin-top:120px;
-    background:0;
-    width:500px;
-    text-align:center;
-}
-h2{font-size:20px;line-height:1em;margin-left:2%;}
-f{color:red}
-g{color:#090}
-j{color:#909}
-</style></head><body>
+	<title>JS Pong</title>
+	<style>
+		div{position:absolute;height:30px;background:#DDD;}
+		#spacer{
+		width:98%;
+		background:0;
+		margin-top:500px;
+		text-align:center;}
+		#tail{
+			position:fixed;
+			width:100%;
+			background:0;
+			margin-top:1000px;
+		}
+		body{font-family:verdana}
+		#g{
+			height:500px;
+			width:500px;
+			margin-bottom:20px;
+			background:#000;}
+
+		#p{width:100px;margin-top:440px}
+		#b{width:30px}
+		#t{color:#DDD;font-size:35px}
+		#i{
+			margin-top:120px;
+			background:0;
+			width:500px;
+			text-align:center;
+		}
+		h2{font-size:20px;line-height:1em;margin-left:2%;}
+		f{color:red}
+		g{color:#090}
+		j{color:#909}
+	</style>
+</head>
+<body>
 
 <div id="g"></div>
 <div id="b"></div>
@@ -136,13 +136,13 @@ function main() {
     }
 
     window.onkeyup=function(e){
-    if(e.which==39)rightArrow=0;
-    if(e.which==37)leftArrow=0
-    if(e.which==32)space=0;}
+		if(e.which==39)rightArrow=0;
+		if(e.which==37)leftArrow=0
+		if(e.which==32)space=0;}
 	window.onkeydown=function(e){
-	if(e.which==39)rightArrow=1;
-    if(e.which==37)leftArrow=1;
-    if(e.which==32)space=1;}
+		if(e.which==39)rightArrow=1;
+		if(e.which==37)leftArrow=1;
+		if(e.which==32)space=1;}
     
    	setTimeout(main,space?10:20);
 }  
