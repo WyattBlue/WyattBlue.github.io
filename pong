@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head>
 <style>
@@ -150,7 +150,7 @@ function start() {
 	ballY=170;
 	yacel=3;
 	tick=-300;
-    pX=208;
+	pX=208;
 }
 
 </script>
