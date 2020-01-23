@@ -1,3 +1,6 @@
+layout: page
+title: "Pong"
+permalink: /pong
 <!doctype html>
 <html>
 <head>
