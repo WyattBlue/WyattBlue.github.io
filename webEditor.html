@@ -121,7 +121,7 @@ function inter(INTERNALedit,org){
 		for(let i =0;i<INTERNALcon.length;i++){
 			INTERNALstring+="\n > "+INTERNALcon[i];
 		}
-		return INTERNALstring==""?"":org+"\n"+INTERNALstring;
+		return INTERNALstring==""?org:org+"\n"+INTERNALstring;
 	}
 	catch(error) {
 		return org+"\n\n"+error;
