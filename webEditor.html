@@ -45,7 +45,7 @@ try {
 		editCookie.value =(getCookie("text").split("<br>").join('\n')).split("@").join(";");
 	}
 }
-except {
+catch {
 	editCookie.value="console.log('hello');\nconsole.log('world');";
 }
 
