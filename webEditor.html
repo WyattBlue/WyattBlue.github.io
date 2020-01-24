@@ -57,10 +57,10 @@ let h = window.innerHeight;
 let edit = document.getElementById('edit');
 let rslt = document.getElementById('result');
 edit.id="edit";
-edit.style.width = (w/2-(0.05*w)) + "px";
-edit.style.height = (h-(0.1*h)) + "px";
-rslt.style.width = (w/2-(0.05*w)) + "px";
-rslt.style.height = (h-(0.1*h)) + "px";
+edit.style.width = w/2-20 + "px";
+edit.style.height = h-20 + "px";
+rslt.style.width = w/2-20 + "px";
+rslt.style.height = h-20 + "px";
 
 edit.value = edit.value.split('“').join('"');
 edit.value = edit.value.split('”').join('"');	
@@ -76,14 +76,8 @@ fixed = fixed.split("this.").join("");
 fixed = fixed.split(".document").join("");
 fixed = fixed.split("this)").join("");
 
-let hm = inter(fixed,edit.value);
-let string = edit.value+"\n";
-for(let i =0;i<fixed.length;i++){
-	string+="\n > "+fixed[i];
-}
-if(hm!=undefined)rslt.value=hm;
-else rslt.value=string;
-	
+let string;
+rslt.value = inter(fixed,edit.value);
 let editValueFormatted = ((edit.value).split("\n").join("<br>")).split(";").join("<sc>").split("=").join("<eq>");
 document.cookie = "text="+editValueFormatted;
 setTimeout(main,30);
@@ -101,6 +95,15 @@ function inter(INTERNALedit,org){
 			return org+"\n\nNever Ending Loop Detected";
 		}
 		eval(INTERNALedit);
+		if(INTERNALcon[0]==undefined){
+			return org+"\n\n> ";
+		} else {
+			string = org+"\n";
+			for(let i =0;i<INTERNALcon.length;i++){
+				string+="\n > "+INTERNALcon[i];
+			}
+			return string;
+		}
 	}
 	catch(error) {
 		return org+"\n\n"+error;
