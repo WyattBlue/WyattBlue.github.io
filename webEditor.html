@@ -11,7 +11,7 @@
 	textarea {
 		font-family:monospace;
 		font-size:30px;
-		background-color: #111112;
+		background-color: #111C1A;
 		color: #DDD;
 		border:0px;
 		resize:none;
@@ -61,8 +61,12 @@ rslt.style.height = h-20 + "px";
 
 let fixed = edit.value;
 fixed = fixed.split("console.log").join("INTERNALcon.push");
+fixed = fixed.split("console.dir").join("INTERNALcon.push");
 fixed = fixed.split("alert(").join("INTERNALcon.push(");
 fixed = fixed.split("document.").join("");
+fixed = fixed.split("(document).").join("");
+fixed = fixed.split("((document))").join("");
+//fixed = fixed.split(" 
 
 let string;
 rslt.value = inter(fixed,edit.value);
