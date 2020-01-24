@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- version 1 -->
+<!-- version 2 -->
 <html>
 <head>
 <title>Web Editor</title>
@@ -37,11 +37,16 @@ function getCookie(cname) {
   }
   return"";}
 
-let editCookie = document.getElementById('edit');
-if(getCookie('text')==''){
+try {
+	let editCookie = document.getElementById('edit');
+	if(getCookie('text')==''){
+		editCookie.value="console.log('hello');\nconsole.log('world');";
+	}else{
+		editCookie.value =(getCookie("text").split("<br>").join('\n')).split("@").join(";");
+	}
+}
+except {
 	editCookie.value="console.log('hello');\nconsole.log('world');";
-}else{
-	editCookie.value =(getCookie("text").split("<br>").join('\n')).split("@").join(";");
 }
 
 !function main(){
