@@ -76,13 +76,14 @@ fixed = fixed.split("this.").join("");
 fixed = fixed.split(".document").join("");
 fixed = fixed.split("this)").join("");
 
-inter(fixed,edit.value);
+let hm = inter(fixed,edit.value);
 let string = org+"\n";
 for(let i =0;i<INTERNALcon.length;i++){
 	string+="\n > "+INTERNALcon[i];
 }
-rslt.value = string;
-
+if(hm!=undefined)rslt.value=hm;
+else rslt.value=string;
+	
 let editValueFormatted = ((edit.value).split("\n").join("<br>")).split(";").join("<sc>").split("=").join("<eq>");
 document.cookie = "text="+editValueFormatted;
 setTimeout(main,30);
