@@ -17,8 +17,18 @@
 		background-color: #111C1A;
 		color: #DDD;
 		border:0px;
+		margin:0px;
+		padding:0px;
 		resize:none;
+		width:44%;
+		padding:3%:
 	}
+	#edit {
+	  box-sizing: border-box;
+	  border: 3px solid #ccc;
+	  -webkit-transition: 0.5s;
+	  transition: 0.5s;
+	  outline: none;
 </style>
 </head>
 <body>
@@ -57,9 +67,8 @@ let h = window.innerHeight;
 let edit = document.getElementById('edit');
 let rslt = document.getElementById('result');
 edit.id="edit";
-edit.style.width = w/2 + "px";
+	
 edit.style.height = h-20 + "px";
-rslt.style.width = w/2 + "px";
 rslt.style.height = h-20 + "px";
 
 edit.value = edit.value.split('“').join('"');
