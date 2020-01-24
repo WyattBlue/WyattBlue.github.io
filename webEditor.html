@@ -76,10 +76,11 @@ fixed = fixed.split("this.").join("");
 fixed = fixed.split(".document").join("");
 fixed = fixed.split("this)").join("");
 
+let INTERNALcon = [];
 let hm = inter(fixed,edit.value);
 let string = edit.value+"\n";
-for(let i =0;i<INTERNALcon.length;i++){
-	string+="\n > "+INTERNALcon[i];
+for(let i =0;i<fixed.length;i++){
+	string+="\n > "+fixed[i];
 }
 if(hm!=undefined)rslt.value=hm;
 else rslt.value=string;
@@ -91,9 +92,7 @@ setTimeout(main,30);
 }();
 
 function inter(INTERNALedit,org){
-	let INTERNALcon = [];
 	let document;
-	let string;
 	try {
 		if(INTERNALedit.includes('while(true){') && !INTERNALedit.includes('break;')){
 			return org+"\n\nNever Ending Loop Detected";
