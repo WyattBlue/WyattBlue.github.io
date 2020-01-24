@@ -1,10 +1,12 @@
 <!doctype html>
+<!-- version 1 -->
 <html>
 <head>
 <title>Web Editor</title>
 <style>
 	body {
 		background-color: #010;
+		overflow:hidden;
 	}
 	textarea {
 		font-family:monospace;
@@ -17,28 +19,23 @@
 </style>
 </head>
 <body>
-	<textarea id="edit">console.log('hello');</textarea>
+	<textarea id="edit" autocapitalize="off">please enable javascript</textarea>
 	<textarea id="result" readonly></textarea>
 <script>
 !function(){
 
 
-
 function getCookie(cname) {
-  let name = cname +"=";
-  let decodedCookie = decodeURIComponent(document.cookie);
+  let name = cname +"=";let decodedCookie = decodeURIComponent(document.cookie);
   let ca = decodedCookie.split(';');
   for(let i=0;i<ca.length;i++) {
     let c =ca[i];
-    while(c.charAt(0)==' ') {
-      c = c.substring(1);
-    }
-    if(c.indexOf(name) == 0) {
+    while(c.charAt(0)==' '){c = c.substring(1);}
+    if(c.indexOf(name) == 0){
       return c.substring(name.length, c.length);
     }
   }
-  return"";
-}
+  return"";}
 
 let editCookie = document.getElementById('edit');
 if(getCookie('text')==''){
