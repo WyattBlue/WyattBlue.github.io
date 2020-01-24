@@ -62,6 +62,9 @@ edit.style.height = h-20 + "px";
 rslt.style.width = w/2-20 + "px";
 rslt.style.height = h-20 + "px";
 
+edit.value = edit.value.split('“').join('"');
+edit.value = edit.value.split("‘").join("'");
+
 let fixed = edit.value;
 fixed = fixed.split("console.log").join("INTERNALcon.push");
 fixed = fixed.split("console.dir").join("INTERNALcon.push");
@@ -69,8 +72,6 @@ fixed = fixed.split("alert(").join("INTERNALcon.push(");
 fixed = fixed.split("document.").join("");
 fixed = fixed.split("(document).").join("");
 fixed = fixed.split("((document))").join("");
-fixed = fixed.split("‘").join("'");
-fixed = fixed.split('“').join('"');
 
 let string;
 rslt.value = inter(fixed,edit.value);
