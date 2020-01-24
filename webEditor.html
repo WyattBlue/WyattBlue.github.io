@@ -36,9 +36,8 @@ function getCookie(cname) {
     }
   }
   return"";}
-
+let editCookie = document.getElementById('edit');
 try {
-	let editCookie = document.getElementById('edit');
 	if(getCookie('text')==''){
 		editCookie.value="console.log('hello');\nconsole.log('world');";
 	}else{
