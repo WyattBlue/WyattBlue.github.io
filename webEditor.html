@@ -65,7 +65,7 @@ fixed = fixed.split("document.").join("");
 
 let string;
 rslt.value = inter(fixed,edit.value);
-let editValueFormatted = ((edit.value).split("\n").join("<br>")).split("j").join("@");
+let editValueFormatted = ((edit.value).split("\n").join("<br>")).split(";").join("@");
 document.cookie = "text="+editValueFormatted;
 setTimeout(main,30);
 
