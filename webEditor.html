@@ -21,7 +21,6 @@
 		padding:0px;
 		resize:none;
 		width:49%;
-		padding:4%:
 	}
 	#edit :focus {
 	  box-sizing: border-box;
@@ -70,8 +69,10 @@ let edit = document.getElementById('edit');
 let rslt = document.getElementById('result');
 edit.id="edit";
 	
-edit.style.height = h-20 + "px";
-rslt.style.height = h-20 + "px";
+edit.style.height = h-60 + "px";
+edit.style.padding = w*0.1 + "px";
+rslt.style.height = h-60 + "px";
+rslt.style.padding = w*0.1 + "px";
 
 edit.value = edit.value.split('“').join('"');
 edit.value = edit.value.split('”').join('"');	
