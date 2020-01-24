@@ -57,10 +57,10 @@ let h = window.innerHeight;
 let edit = document.getElementById('edit');
 let rslt = document.getElementById('result');
 edit.id="edit";
-edit.style.width = w/2-20 + "px";
-edit.style.height = h-20 + "px";
-rslt.style.width = w/2-20 + "px";
-rslt.style.height = h-20 + "px";
+edit.style.width = (w/2-(0.05*w)) + "px";
+edit.style.height = (h-(0.1*h)) + "px";
+rslt.style.width = (w/2-(0.05*w)) + "px";
+rslt.style.height = (h-(0.1*h)) + "px";
 
 edit.value = edit.value.split('“').join('"');
 edit.value = edit.value.split('”').join('"');	
