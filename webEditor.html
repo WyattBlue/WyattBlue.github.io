@@ -21,33 +21,30 @@
 	<textarea id="result" readonly></textarea>
 <script>
 !function(){
-function replaceAll(str, find, replace) {
-    return str.replace(new RegExp(find, 'g'), replace);
-}
 
-//start
-let editCookie = document.getElementById('edit');
+
 
 function getCookie(cname) {
-  let name = cname + "=";
+  let name = cname +"=";
   let decodedCookie = decodeURIComponent(document.cookie);
   let ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
+  for(let i=0;i<ca.length;i++) {
+    let c =ca[i];
+    while(c.charAt(0)==' ') {
       c = c.substring(1);
     }
-    if (c.indexOf(name) == 0) {
+    if(c.indexOf(name) == 0) {
       return c.substring(name.length, c.length);
     }
   }
-  return "";
+  return"";
 }
 
+let editCookie = document.getElementById('edit');
 if(getCookie('text')==''){
 	editCookie.value="console.log('hello');\nconsole.log('world');";
 }else{
-	editCookie.value = getCookie("text");
+	editCookie.value = getCookie("text").split("<br>".join('\n'));
 }
 
 !function main(){
