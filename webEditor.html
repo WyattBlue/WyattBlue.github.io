@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<title>Web Editor</title>
+<style>
+	body {
+		background-color: #010;
+	}
+	textarea {
+		font-family:monospace;
+		font-size:30px;
+		background-color: #121;
+		color: #DDD;
+		border:0px;
+		resize:none;
+	}
+</style>
+</head>
+<body>
+	<textarea id="edit">console.log('hello');</textarea>
+	<textarea id="result" readonly></textarea>
+<script>
+!function(){
+!function main(){
+let w = window.innerWidth;
+let h = window.innerHeight;
+let edit = document.getElementById('edit');
+let rslt = document.getElementById('result');
+edit.id="edit";
+edit.style.width = w/2-20 + "px";
+edit.style.height = h-20 + "px";
+rslt.style.width = w/2-20 + "px";
+rslt.style.height = h-20 + "px";
+
+let fixed = edit.value;
+fixed = fixed.replace("console.log","con.push");
+fixed = fixed.replace("alert(","con.push(");
+fixed = fixed.replace("document.","");
+rslt.value = inter(fixed,edit.value);
+
+setTimeout(main,30);
+
+}();
+
+function inter(INTERNALedit,org){
+	let con = [];
+	try {
+		eval(INTERNALedit);
+		if(con[0]==undefined){
+			return org+"\n\n> ";
+		}
+		else {
+			return org+"\n\n> "+con[con.length-1];
+		}
+	}
+	catch(error) {
+		return org+"\n\n"+error;
+	}
+}
+}();
+
+</script>
+</body>
+</html>
