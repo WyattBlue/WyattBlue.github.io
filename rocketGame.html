@@ -1,0 +1,231 @@
+<html>
+<head>
+<title>Rocket Game</title>
+<style>
+	body {
+		overflow:hidden;
+		background-color:black;
+	}
+	img {
+		user-select: none;
+	}
+	.star {
+		position:absolute;
+		border-radius:50%;
+		background-color:#ddd;
+		width:3px;
+		height:3px;
+	}
+	.ball{
+		position:absolute;
+		border-radius:50%;
+		background-color:#11a;
+	}
+	.as {
+		width:120px;
+		height:120px;
+		position:absolute;
+
+	}
+	h1 {
+		color:white;
+		text-align:center;
+		font-family:sans-serif;
+		position:relative;
+		margin-top:10px;
+		font-size:40px;
+	}
+</style>
+</head>
+<body>
+<script>
+
+!function game(){
+
+debugger;
+
+let starX=[];
+let starY=[];
+let starD=[];
+
+let ballX=[];
+let ballY=[];
+let ballXS=[];
+let ballYS=[];
+let ballD=[];
+
+let asX=[];
+let asY=[];
+let asD=[];
+
+let mouseX = 0;
+let mouseY = 0;
+let space = 0;
+let spacePress=0;
+
+let deg = 0;
+let degre;
+let rocketX=0;
+let rocketY=0;
+
+let n = 0;
+let tick = 0;
+let stage = 0;
+
+let heg;
+let wid;
+
+!function main(){
+
+	heg = window.innerHeight;
+	wid = window.innerWidth;
+
+	starX.push(Math.floor(Math.random()*(wid)));
+	starY.push(0);
+	starD.push(Math.random()*3+6);
+
+	if(tick%5<4){
+		if(n%2==0){
+			asX.push(Math.floor(Math.random()*(wid)));
+			asY.push(-20);
+			asD.push(Math.random()*7+8);
+		}
+	}
+
+	degre = deg+90;
+
+	if(space==1 && spacePress==0){
+		ballX.push(rocketX-1);
+		ballY.push(rocketY-80);
+		ballD.push(deg+180);
+		ballXS.push(25*Math.cos((degre)*Math.PI/180)*1.5);
+		ballYS.push(25*Math.sin((degre)*Math.PI/180));
+		spacePress=1;
+	}
+	if(space==0){
+		spacePress=0;
+	}
+
+	clear(document.getElementsByTagName('span'));
+	clear(document.getElementsByTagName('div'));
+	clear(document.getElementsByTagName('img'));
+	clear(document.getElementsByTagName('h1'));
+
+	function clear(tag){
+		let spans = tag;
+		let len = spans.length;
+		for(let i=len-1; i>=0; i--){
+			let item = spans[i];
+			item.parentNode.removeChild(item);
+		}	
+	}
+	let len = starX.length;
+	for(let i=0; i<len; i++){
+
+		if(starY[i] > heg){
+			starY.splice(i,1);
+			starX.splice(i,1);
+			starD.splice(i,1);
+			len--;
+		} else { 
+			let star = document.createElement('span');
+			star.className="star";
+			star.style.top = starY[i]-3/2;
+			star.style.left = starX[i]-3/2;
+			starY[i]+=starD[i];
+
+			document.body.appendChild(star);
+		}
+	}
+
+	let len2 = ballX.length;
+	for(let i =0;i<len2;i++){
+		if(ballY[i] < -10){
+			ballY.splice(i,1);
+			ballX.splice(i,1);
+			ballXS.splice(i,1);
+			ballYS.splice(i,1);
+			ballD.splice(i,1);
+			len2--;
+		} else {
+		let ball = document.createElement('div');
+		ball.className="ball";
+		ball.style.height="30px";
+		ball.style.width="15px";
+		ball.style.top = ballY[i]-30/2;
+		ball.style.left = ballX[i]-15/2;
+		ball.style.transform = "rotate("+ballD[i]+"deg)";
+		ballY[i]-=ballYS[i];
+		ballX[i]-=ballXS[i];
+
+		document.body.appendChild(ball);
+		}
+	}
+	let rocket = document.createElement('img');
+
+	rocket.style.width = (400/2)+"px";
+	rocket.style.height = (378/2)+"px";
+	rocket.style.position='absolute';
+	rocket.src="img/rocket.png";
+	rocketX += (mouseX-rocketX)/6;
+	rocketY += (mouseY-rocketY)/6;
+	deg = (mouseX-rocketX)/4;
+	if(deg>90)deg=90;
+	if(deg<-90)deg=-90;
+
+	rocket.style.top = rocketY - (372 / 2 / 2)+8;
+	rocket.style.left = rocketX - (400 / 2 / 2)+2;
+	rocket.style.transform = "rotate("+deg+"deg)"; 
+	document.body.appendChild(rocket);
+
+	document.getElementsByTagName('img')[0].ondragstart = function() { return false; };
+
+	let len3 = asX.length;
+	for(let i=0;i<len3;i++){
+
+		if(asY[i] > heg+800){
+			asX.splice(i,1);
+			asY.splice(i,1);
+			asD.splice(i,1);
+			len3--;
+		} else {
+			let as = document.createElement('img');
+			as.className="as";
+			as.style.height="120px";
+			as.style.width="120px";
+			as.src="img/as.png";
+			as.style.position='absolute';
+			as.style.top = asY[i]-120/2;
+			as.style.left = asX[i]-120/2;
+			asY[i]+=asD[i];
+
+			document.body.appendChild(as);
+		}
+	}
+	text = document.createElement('h1');
+	text.innerText = "Stage "+stage;
+	document.body.appendChild(text);
+	n++;
+	if(n>80){
+		tick++;
+		n=0;
+	}
+	if(tick>80){
+		tick=0;
+	}
+	setTimeout(main, Math.floor(1000/ 60) );
+}();
+
+onmousemove = function(e){mouseX = e.clientX; mouseY = e.clientY}
+onkeyup = function(e){
+	if(e.which==32)space=0;
+}
+onkeydown = function(e){
+	if(e.which==32)space=1;
+}
+
+}();
+
+</script>
+</body>
+</html>
