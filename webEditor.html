@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- version 4 -->
+<!-- version 5 -->
 <html>
 <head>
 <title>Web Editor</title>
@@ -16,26 +16,25 @@
 		font-size:30px;
 		background-color: #111C1A;
 		color: #DDD;
-		border:0px;
-		margin:0px;
-		padding:0px;
 		resize:none;
-		width:49%;
+		border:0px;
+		width:48%;
+		margin-top:1%;
 	}
-	#edit :focus {
-	  box-sizing: border-box;
-	  border: 2px solid #444;
-	  -webkit-transition: 0.5s;
-	  transition: 0.5s;
-	  outline: none;
+	#edit {
+		float:left;
+	}
+	#result {
+		float:right;
+		overflow:hidden;
+	}
 </style>
 </head>
 <body>
-	<div style="text-align:center">
-		<textarea id="edit" autocapitalize="off">please enable javascript</textarea>
+		<textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false" onkeydown="if(event.keyCode===9){let v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0,s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}">please enable javascript</textarea>
 		<textarea id="result" readonly></textarea>
-	</div>
 <script>
+
 !function(){
 
 
@@ -53,13 +52,13 @@ function getCookie(cname) {
 let editCookie = document.getElementById('edit');
 try {
 	if(getCookie('text')==''){
-		editCookie.value="console.log('hello');\nconsole.log('world');";
+		editCookie.value='console.log("Hello World!");';
 	}else{
-		editCookie.value =(getCookie("text").split("<br>").join('\n')).split("<sc>").join(";").split("<eq>").join("=");
+		editCookie.value =getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
 	}
 }
 catch {
-	editCookie.value="console.log('hello');\nconsole.log('world');";
+	editCookie.value='console.log("Hello World!");';
 }
 
 !function main(){
@@ -69,10 +68,10 @@ let edit = document.getElementById('edit');
 let rslt = document.getElementById('result');
 edit.id="edit";
 	
-edit.style.height = h-60 + "px";
-edit.style.padding = w*0.1 + "px";
-rslt.style.height = h-60 + "px";
-rslt.style.padding = w*0.1 + "px";
+edit.style.height = h-120 + "px";
+edit.style.marginLeft = w*0.01 + "px";
+rslt.style.height = h-120 + "px";
+rslt.style.marginRight = w*0.01 + "px";
 
 edit.value = edit.value.split('“').join('"');
 edit.value = edit.value.split('”').join('"');	
@@ -97,25 +96,25 @@ setTimeout(main,30);
 }();
 
 function inter(INTERNALedit,org){
-	let INTERNALcon = [];
+	INTERNALcon = [];
 	let document;
 	try {
 		if(INTERNALedit.includes('while(true){') && !INTERNALedit.includes('break;')){
-			return org+"\n\nNever Ending Loop Detected";
+			return org+"\n\nInfinite Loop Detected";
 		}
 		if(INTERNALedit.includes('while(1){') && !INTERNALedit.includes('break;')){
-			return org+"\n\nNever Ending Loop Detected";
+			return org+"\n\nInfinite Loop Detected";
 		}
+		if(INTERNALedit.includes('for(;;){') && !INTERNALedit.includes('break;')){
+			return org+"\n\nInfinite Loop Detected";
+		}
+		let INTERNALstring = "";
 		eval(INTERNALedit);
-		if(INTERNALcon[0]==undefined){
-			return org+"\n\n> ";
-		} else {
-			string = org+"\n";
-			for(let i =0;i<INTERNALcon.length;i++){
-				string+="\n > "+INTERNALcon[i];
-			}
-			return string;
+
+		for(let i =0;i<INTERNALcon.length;i++){
+			INTERNALstring+="\n > "+INTERNALcon[i];
 		}
+		return INTERNALstring==""?"":org+"\n"+INTERNALstring;
 	}
 	catch(error) {
 		return org+"\n\n"+error;
@@ -123,6 +122,9 @@ function inter(INTERNALedit,org){
 }
 
 }();
+
+
+
 </script>
 </body>
 </html>
