@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- version 3 -->
+<!-- version 4 -->
 <html>
 <head>
 <title>Web Editor</title>
@@ -64,14 +64,15 @@ rslt.style.height = h-20 + "px";
 
 edit.value = edit.value.split('“').join('"');
 edit.value = edit.value.split("‘").join("'");
+edit.value = edit.value.split("’").join("'");
 
 let fixed = edit.value;
 fixed = fixed.split("console.log").join("INTERNALcon.push");
 fixed = fixed.split("console.dir").join("INTERNALcon.push");
 fixed = fixed.split("alert(").join("INTERNALcon.push(");
-fixed = fixed.split("document.").join("");
-fixed = fixed.split("(document).").join("");
-fixed = fixed.split("((document))").join("");
+//fixed = fixed.split("document.").join("");
+//fixed = fixed.split("(document).").join("");
+//fixed = fixed.split("((document))").join("");
 
 let string;
 rslt.value = inter(fixed,edit.value);
@@ -83,6 +84,7 @@ setTimeout(main,30);
 
 function inter(INTERNALedit,org){
 	let INTERNALcon = [];
+	let document = "worked!";
 	try {
 		if(INTERNALedit.includes('while(true){') && !INTERNALedit.includes('break;')){
 			return org+"\n\nNever Ending Loop Detected";
