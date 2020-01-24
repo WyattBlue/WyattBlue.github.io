@@ -43,7 +43,12 @@ function getCookie(cname) {
   }
   return "";
 }
-editCookie.value = getCookie("text");
+
+if(getCookie('text')==''){
+	editCookie.value="console.log('hello');"
+}else{
+	editCookie.value = getCookie("text");
+}
 
 !function main(){
 let w = window.innerWidth;
@@ -59,7 +64,7 @@ rslt.style.height = h-20 + "px";
 let fixed = edit.value;
 fixed = fixed.split("console.log").join("INTERNALcon.push");
 fixed = fixed.split("alert(").join("INTERNALcon.push(");
-//fixed = replaceAll(fixed,"document.","");
+fixed = fixed.split("document.").join("");
 
 let string;
 rslt.value = inter(fixed,edit.value);
