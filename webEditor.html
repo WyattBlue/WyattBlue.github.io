@@ -72,7 +72,8 @@ let fixed = edit.value;
 fixed = fixed.split("console.log").join("INTERNALcon.push");
 fixed = fixed.split("console.dir").join("INTERNALcon.push");
 fixed = fixed.split("alert(").join("INTERNALcon.push(");
-fixed = fixed.split("this.document").join("document");
+fixed = fixed.split("this.").join("");
+fixed = fixed.split(".document").join("");
 fixed = fixed.split("this)").join("");
 
 let string;
