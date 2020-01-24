@@ -3,9 +3,7 @@
 <html>
 <head>
 <title>Web Editor</title>
-<meta
-      name='viewport'
-      content='width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=0'/>
+<meta name='viewport' content='width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=0'>
 <style>
 	body {
 		background-color: #010;
@@ -13,7 +11,6 @@
 	}
 	textarea {
 		font-family:monospace;
-		font-size:30px;
 		background-color: #111C1A;
 		color: #DDD;
 		resize:none;
@@ -39,39 +36,49 @@
 
 
 function getCookie(cname) {
-  let name = cname +"=";let decodedCookie = decodeURIComponent(document.cookie);
-  let ca = decodedCookie.split(';');
-  for(let i=0;i<ca.length;i++) {
-    let c =ca[i];
-    while(c.charAt(0)==' '){c = c.substring(1);}
-    if(c.indexOf(name) == 0){
-      return c.substring(name.length, c.length);
-    }
-  }
-  return"";}
-let editCookie = document.getElementById('edit');
+  let name=cname+"=";
+  let decodedCookie=decodeURIComponent(document.cookie);
+  let ca=decodedCookie.split(';');
+  for(let i=0;i<ca.length;i++){
+    let c=ca[i];
+    while(c.charAt(0)==' '){c=c.substring(1);}
+    if(c.indexOf(name)==0)
+    	return c.substring(name.length,c.length);
+  }return"";}
+
+let edit = document.getElementById('edit');
+let rslt = document.getElementById('result');
+
+let font=30;
 try {
 	if(getCookie('text')==''){
-		editCookie.value='console.log("Hello World!");';
+		edit.value='console.log("Hello World!");';
 	}else{
-		editCookie.value =getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
+		edit.value =getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
 	}
 }
 catch {
-	editCookie.value='console.log("Hello World!");';
+	edit.value='console.log("Hello World!");';
 }
 
 !function main(){
 let w = window.innerWidth;
 let h = window.innerHeight;
-let edit = document.getElementById('edit');
-let rslt = document.getElementById('result');
-edit.id="edit";
 	
 edit.style.height = h-120 + "px";
 edit.style.marginLeft = w*0.01 + "px";
+edit.style.fontSize=(w<=470?font/2:font) + "px";
 rslt.style.height = h-120 + "px";
 rslt.style.marginRight = w*0.01 + "px";
+rslt.style.fontSize=(w<=470?font/2:font) + "px";
+
+if(w<=470){
+	edit.style.width="47%";
+	rslt.style.width="47%";
+}else{
+	edit.style.width="48%";
+	rslt.style.width="48%";
+}
 
 edit.value = edit.value.split('“').join('"');
 edit.value = edit.value.split('”').join('"');	
