@@ -72,6 +72,7 @@ let fixed = edit.value;
 fixed = fixed.split("console.log").join("INTERNALcon.push");
 fixed = fixed.split("console.dir").join("INTERNALcon.push");
 fixed = fixed.split("alert(").join("INTERNALcon.push(");
+fixed = fixed.split("this.document").join("document");
 
 let string;
 rslt.value = inter(fixed,edit.value);
@@ -84,6 +85,7 @@ setTimeout(main,30);
 function inter(INTERNALedit,org){
 	let INTERNALcon = [];
 	let document;
+	let this;
 	try {
 		if(INTERNALedit.includes('while(true){') && !INTERNALedit.includes('break;')){
 			return org+"\n\nNever Ending Loop Detected";
