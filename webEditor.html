@@ -45,7 +45,7 @@ function getCookie(cname) {
 }
 
 if(getCookie('text')==''){
-	editCookie.value="console.log('hello');"
+	editCookie.value="console.log('hello');\nconsole.log('world');";
 }else{
 	editCookie.value = getCookie("text");
 }
@@ -68,7 +68,8 @@ fixed = fixed.split("document.").join("");
 
 let string;
 rslt.value = inter(fixed,edit.value);
-document.cookie = "text="+edit.value;
+let editValueFormatted = (edit.value).split("\n").join("<br>");
+document.cookie = "text="+editValueFormatted;
 setTimeout(main,30);
 
 }();
