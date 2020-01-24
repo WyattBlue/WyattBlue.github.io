@@ -69,7 +69,8 @@ fixed = fixed.split("alert(").join("INTERNALcon.push(");
 fixed = fixed.split("document.").join("");
 fixed = fixed.split("(document).").join("");
 fixed = fixed.split("((document))").join("");
-//fixed = fixed.split(" 
+fixed = fixed.split("‘").join("'");
+fixed = fixed.split('“').join('"');
 
 let string;
 rslt.value = inter(fixed,edit.value);
