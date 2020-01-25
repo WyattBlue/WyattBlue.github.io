@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- version 5 -->
+<!-- version 6 -->
 <html>
 <head>
 <title>Web Editor</title>
@@ -17,6 +17,9 @@
 		border:0px;
 		width:48%;
 		margin-top:1%;
+		tab-size:4;
+		-moz-tab-size:4;
+		-o-tab-size: 4;
 	}
 	#edit {
 		float:left;
@@ -24,12 +27,19 @@
 	#result {
 		float:right;
 		overflow:hidden;
+		user-select:none;
+	}
+	span{
+		position:absolute;
+		color:#333;
 	}
 </style>
 </head>
 <body>
-		<textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false" onkeydown="if(event.keyCode===9){let v=this.value,s=this.selectionStart,e=this.selectionEnd;this.value=v.substring(0,s)+'\t'+v.substring(e);this.selectionStart=this.selectionEnd=s+1;return false;}">please enable javascript</textarea>
-		<textarea id="result" readonly></textarea>
+
+<textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false" >please enable javascript</textarea>
+<textarea id="result" readonly="readonly"></textarea>
+<span id="gear">⚙</span>
 <script>
 
 !function(){
@@ -48,13 +58,21 @@ function getCookie(cname) {
 
 let edit = document.getElementById('edit');
 let rslt = document.getElementById('result');
+edit.onkeydown=function(){
+	if(event.keyCode===9){
+		let v=this.value,s=this.selectionStart,e=this.selectionEnd;
+		this.value=v.substring(0,s)+'\t'+v.substring(e);
+		this.selectionStart=this.selectionEnd=s+1;
+		return false;
+	}
+}
 
 let font=30;
 try {
 	if(getCookie('text')==''){
 		edit.value='console.log("Hello World!");';
 	}else{
-		edit.value =getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
+		edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
 	}
 }
 catch {
@@ -73,8 +91,8 @@ rslt.style.marginRight = w*0.01 + "px";
 rslt.style.fontSize=(w<=470?font/2:font) + "px";
 
 if(w<=470){
-	edit.style.width="47%";
-	rslt.style.width="47%";
+	edit.style.width="46%";
+	rslt.style.width="46%";
 }else{
 	edit.style.width="48%";
 	rslt.style.width="48%";
@@ -83,7 +101,6 @@ if(w<=470){
 edit.value = edit.value.split('“').join('"');
 edit.value = edit.value.split('”').join('"');	
 edit.value = edit.value.split("‘").join("'");
-edit.value = edit.value.split("’").join("'");
 edit.value = edit.value.split("’").join("'");
 
 let fixed = edit.value;
@@ -129,8 +146,6 @@ function inter(INTERNALedit,org){
 }
 
 }();
-
-
 
 </script>
 </body>
