@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- version 6 -->
+<!-- version 5 -->
 <html>
 <head>
 <title>Web Editor</title>
@@ -24,22 +24,21 @@
 	#edit {
 		float:left;
 	}
-	#result {
+	#rslt {
 		float:right;
-		overflow:hidden;
-		user-select:none;
-	}
-	span{
-		position:absolute;
-		color:#333;
+		overflow-x:hidden;
 	}
 </style>
 </head>
 <body>
 
 <textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false" >please enable javascript</textarea>
-<textarea id="result" readonly="readonly"></textarea>
-<span id="gear">⚙</span>
+<textarea id="rslt" readonly="readonly" placeholder=
+'JS Web Editor
+by Wyatt Blue
+
+enter javascript code on the left textbox.' 
+spellcheck="false"></textarea>
 <script>
 
 !function(){
@@ -57,7 +56,8 @@ function getCookie(cname) {
   }return"";}
 
 let edit = document.getElementById('edit');
-let rslt = document.getElementById('result');
+let rslt = document.getElementById('rslt');
+let execute=false;
 edit.onkeydown=function(){
 	if(event.keyCode===9){
 		let v=this.value,s=this.selectionStart,e=this.selectionEnd;
@@ -65,18 +65,15 @@ edit.onkeydown=function(){
 		this.selectionStart=this.selectionEnd=s+1;
 		return false;
 	}
+	execute=true;
 }
 
 let font=30;
 try {
-	if(getCookie('text')==''){
-		edit.value='console.log("Hello World!");';
-	}else{
-		edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
-	}
+	edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
 }
 catch {
-	edit.value='console.log("Hello World!");';
+	edit.value='';
 }
 
 !function main(){
@@ -106,46 +103,60 @@ edit.value = edit.value.split("’").join("'");
 let fixed = edit.value;
 fixed = fixed.split("console.log").join("INTERNALcon.push");
 fixed = fixed.split("console.dir").join("INTERNALcon.push");
-fixed = fixed.split("alert(").join("INTERNALcon.push(");
 fixed = fixed.split("this.").join("");
 fixed = fixed.split(".document").join("");
 fixed = fixed.split("this)").join("");
 
-let string;
-rslt.value = inter(fixed,edit.value);
+
+if(edit.value!=""){
+	if(execute){
+		rslt.value = edit.value + inter(fixed);
+		execute=false;
+	}
+}else{
+	rslt.value="";
+}
+
 let editValueFormatted = ((edit.value).split("\n").join("<br>")).split(";").join("<sc>").split("=").join("<eq>");
 document.cookie = "text="+editValueFormatted;
 setTimeout(main,30);
 
 }();
 
-function inter(INTERNALedit,org){
+}();
+
+function inter(INTERNALedit){
 	INTERNALcon = [];
-	let document;
 	try {
 		if(INTERNALedit.includes('while(true){') && !INTERNALedit.includes('break;')){
-			return org+"\n\nInfinite Loop Detected";
+			return edit.value+"\n\nInfinite Loop Detected";
 		}
 		if(INTERNALedit.includes('while(1){') && !INTERNALedit.includes('break;')){
-			return org+"\n\nInfinite Loop Detected";
+			return edit.value+"\n\nInfinite Loop Detected";
 		}
 		if(INTERNALedit.includes('for(;;){') && !INTERNALedit.includes('break;')){
-			return org+"\n\nInfinite Loop Detected";
+			return edit.value+"\n\nInfinite Loop Detected";
 		}
-		let INTERNALstring = "";
+
+		let document;
+		let console;
+		let edit;
+		let rslt;
+		let gear;
+		let execute;
+
 		eval(INTERNALedit);
 
-		for(let i =0;i<INTERNALcon.length;i++){
+		let INTERNALstring = "";
+		for(let i=0;i<INTERNALcon.length;i++){
 			INTERNALstring+="\n > "+INTERNALcon[i];
 		}
-		return INTERNALstring==""?org:org+"\n"+INTERNALstring;
+		return "\n"+INTERNALstring;
 	}
 	catch(error) {
-		return org+"\n\n"+error;
+		return "\n\n"+error;
 	}
 }
-
-}();
 
 </script>
 </body>
