@@ -89,13 +89,13 @@ onmouseup = function(e){mouseDown=false;}
 ontouchstart = function(e){mouseDown=true;}
 ontouchend = function(e){mouseDown=false;}
 	
-onchangedTouches = function(e) {
-    //var touches = event.changedTouches;
+onchangedtouches = function(e) {
+	let touches = event.changedTouches;
 	alert("onchangedTouches");
     for(let i=0; i < event.changedTouches.length; i++) {
-        //touchId = event.changedTouches[0].identifier;
-        x = event.changedTouches[0].pageX;
-        y = event.changedTouches[0].pageY;
+        touchId = event.changedTouches[0].identifier;
+        tx = event.changedTouches[0].pageX;
+        ty = event.changedTouches[0].pageY;
     }
 }
 </script>
