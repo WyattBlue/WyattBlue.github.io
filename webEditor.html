@@ -73,7 +73,7 @@ let font=30;
 try {
 	edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
 }
-catch() {
+catch(error) {
 	edit.value='';
 }
 
