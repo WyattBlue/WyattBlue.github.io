@@ -34,10 +34,9 @@
 <body>
 
 <textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false" >please enable javascript</textarea>
-<textarea id="rslt" readonly="readonly" placeholder=
-'JS Web Editor
-by Wyatt Blue
-
+<textarea id="rslt" readonly="readonly" placeholder='JS Web Editor 
+by Wyatt Blue 
+ 
 enter javascript code on the left textbox.' 
 spellcheck="false"></textarea>
 <script>
@@ -71,7 +70,7 @@ edit.onkeydown=function(){
 
 let font=30;
 try {
-	edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=");
+	edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=").split("<tab>").join("\t");
 }
 catch(error) {
 	edit.value='';
@@ -118,7 +117,7 @@ if(edit.value!=""){
 	rslt.value="";
 }
 
-let editValueFormatted = ((edit.value).split("\n").join("<br>")).split(";").join("<sc>").split("=").join("<eq>");
+let editValueFormatted = (edit.value).split("\n").join("<br>").split(";").join("<sc>").split("=").join("<eq>").split("/t").join("<tab>");
 document.cookie = "text="+editValueFormatted;
 setTimeout(main,30);
 
