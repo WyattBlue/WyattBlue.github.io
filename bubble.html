@@ -38,6 +38,8 @@ let touchDown = false;
 let tx=0;
 let ty=0;
 let hold=0;
+let w;
+let h;
 
 !function main(){
 
@@ -50,9 +52,9 @@ let hold=0;
 	document.getElementsByTagName('p')[5].innerHTML="touch y "+ty;
 	document.getElementsByTagName('p')[6].innerHTML="touch down: "+touchDown;
 
-	var list = document.getElementsByTagName("span");
-	for (var k = list.length - 1; k >= 0; k--) {
-		var item = list[k];
+	let list = document.getElementsByTagName("span");
+	for (let k = list.length - 1; k >= 0; k--) {
+		let item = list[k];
 		item.parentNode.removeChild(item);
 	}
 
@@ -65,25 +67,24 @@ let hold=0;
 			cx.shift();
 			cy.shift();
 			i--;
-		}
-		else {
+		} else {
 
 			circle.style.position="absolute";
-			let radius=Math.log((n-cn[i])*2)*30;
+			let radius=Math.log((n-cn[i])*2)*30*Math.max(;
 			
 			circle.style.top=cy[i]-radius/2;
 			circle.style.left=cx[i]-radius/2;
 
 			circle.style.opacity=opa;
 
-			circle.style.boxShadow="0 0 4px #111, 0 0 10px #222;"
+			circle.style.boxShadow="0px 0px 4px #111, 0px 0px 10px #222;"
 			circle.style.height=radius+"px";
 			circle.style.width=radius+"px";
 			document.body.appendChild(circle);	
 		}	
 	}
 
-	if( (mouseDown || touchDown) && hold==0){
+	if((mouseDown || touchDown)&&hold==0){
 		cn.push(n);
 		cx.push(x);
 		cy.push(y);
