@@ -102,10 +102,7 @@ ontouchend = function(e){
 	
 ontouchmove = function(e) {
 	e.preventDefault();
-	let touches = e.changedTouches;
-	alert("onchangedTouches");
 	for(let i=0; i < e.changedTouches.length; i++) {
-		touchId = e.changedTouches[i].identifier;
 		tx = e.changedTouches[i].pageX;
 		ty = e.changedTouches[i].pageY;
 	}
