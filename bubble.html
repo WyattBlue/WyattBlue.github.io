@@ -3,16 +3,27 @@
 	<title>Bubbles</title>
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 	<meta name='apple-mobile-web-app-capable' content='yes' />
+	<style>
+		body {
+			overflow:hidden;	
+		}
+		p {
+			font-family:sans-serif;
+			font-size:5%;
+			text-align:left;
+			margin:5px;
+		}
+		span {
+			border-radius:50%;
+			background-color:#bbb;
+		}
+	</style>
 </head>
 <body>
 
 <script>
 for(let i=0;i<7;i++){
 	let p=document.createElement('p');
-	p.style.fontSize="30px";
-	p.style.fontFamily="Sans-Serif";
-	p.style.textAlign="left";
-	p.style.margin="5px";
 	document.body.appendChild(p);
 }
 
@@ -24,8 +35,8 @@ let x=0;
 let y=0;
 let mouseDown = false;
 let touchDown = false;
-let tx=[0];
-let ty=[0];
+let tx=0;
+let ty=0;
 let hold=0;
 
 !function main(){
@@ -65,8 +76,6 @@ let hold=0;
 
 			circle.style.opacity=opa;
 
-			circle.style.borderRadius="50%";
-			circle.style.backgroundColor="#bbb";
 			circle.style.boxShadow="0 0 4px #111, 0 0 10px #222;"
 			circle.style.height=radius+"px";
 			circle.style.width=radius+"px";
@@ -102,10 +111,6 @@ ontouchend = function(e){
 }
 	
 ontouchmove = function(e) {
-	for(let i=0; i < e.changedTouches.length; i++) {
-		tx = e.changedTouches[i].pageX;
-		ty = e.changedTouches[i].pageY;
-	}
 	x = e.changedTouches[0].pageX;
 	y = e.changedTouches[0].pageY;
 	tx = e.changedTouches[1].pageX;
