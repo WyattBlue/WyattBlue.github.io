@@ -89,13 +89,12 @@ onmousemove = function(e){x=e.clientX; y=e.clientY}
 onmousedown = function(e){mouseDown=true;}
 onmouseup = function(e){mouseDown=false;}
 ontouchstart = function(e){
-	for(let i=0; i < e.changedTouches.length; i++) {
-		tx = e.changedTouches[i].pageX;
-		ty = e.changedTouches[i].pageY;
-	}
+	touchDown=true;
+	
 	x = e.changedTouches[0].pageX;
 	y = e.changedTouches[0].pageY;
-	touchDown=true;
+	tx = e.changedTouches[1].pageX;
+	ty = e.changedTouches[1].pageX;
 }
 ontouchend = function(e){
 	touchDown=false;
@@ -108,6 +107,8 @@ ontouchmove = function(e) {
 	}
 	x = e.changedTouches[0].pageX;
 	y = e.changedTouches[0].pageY;
+	tx = e.changedTouches[1].pageX;
+	ty = e.changedTouches[1].pageX;
 }
 </script>
 </body>
