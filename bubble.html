@@ -74,19 +74,17 @@ let hold=0;
 		}	
 	}
 
-	if(mouseDown==true && hold==0){
+	if( (mouseDown || touchDown) && hold==0){
 		cn.push(n);
 		cx.push(x);
 		cy.push(y);
 		hold=1;
 	}
-	if(mouseDown==false){
+	if(!(mouseDown || touchDown)){
 		hold=0;
 	}
 	setTimeout(main,20);
-
 }();
-
 
 onmousemove = function(e){x=e.clientX; y=e.clientY}
 onmousedown = function(e){mouseDown=true;}
@@ -96,6 +94,8 @@ ontouchstart = function(e){
 		tx = e.changedTouches[i].pageX;
 		ty = e.changedTouches[i].pageY;
 	}
+	x = e.changedTouches[0].pageX;
+	y = e.changedTouches[0].pageY;
 	touchDown=true;
 }
 ontouchend = function(e){
@@ -107,6 +107,8 @@ ontouchmove = function(e) {
 		tx = e.changedTouches[i].pageX;
 		ty = e.changedTouches[i].pageY;
 	}
+	x = e.changedTouches[0].pageX;
+	y = e.changedTouches[0].pageY;
 }
 </script>
 </body>
