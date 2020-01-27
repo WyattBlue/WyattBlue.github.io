@@ -23,7 +23,7 @@ let cy=[];
 let x=0;
 let y=0;
 let mouseDown = false;
-let touchDonw = false;
+let touchDown = false;
 let tx=[0];
 let ty=[0];
 let hold=0;
@@ -97,11 +97,11 @@ ontouchend = function(e){touchDown=false;}
 onchangedtouches = function(e) {
 	let touches = e.changedTouches;
 	alert("onchangedTouches");
-    for(let i=0; i < e.changedTouches.length; i++) {
-        touchId = e.changedTouches[0].identifier;
-        tx = e.changedTouches[0].pageX;
-        ty = e.changedTouches[0].pageY;
-    }
+	for(let i=0; i < e.changedTouches.length; i++) {
+		touchId = e.changedTouches[0].identifier;
+		tx = e.changedTouches[0].pageX;
+		ty = e.changedTouches[0].pageY;
+	}
 }
 </script>
 </body>
