@@ -35,8 +35,8 @@ let hold=0;
 	document.getElementsByTagName('p')[1].innerHTML="mouse x "+x;
 	document.getElementsByTagName('p')[2].innerHTML="mouse y "+y;
 	document.getElementsByTagName('p')[3].innerHTML="mouse down: "+mouseDown;
-	document.getElementsByTagName('p')[4].innerHTML="touch x "+x;
-	document.getElementsByTagName('p')[5].innerHTML="touch y "+x;
+	document.getElementsByTagName('p')[4].innerHTML="touch x "+tx;
+	document.getElementsByTagName('p')[5].innerHTML="touch y "+ty;
 	document.getElementsByTagName('p')[6].innerHTML="touch down: "+touchDown;
 
 	var list = document.getElementsByTagName("span");
@@ -91,16 +91,23 @@ let hold=0;
 onmousemove = function(e){x=e.clientX; y=e.clientY}
 onmousedown = function(e){mouseDown=true;}
 onmouseup = function(e){mouseDown=false;}
-ontouchstart = function(e){touchDown=true;}
-ontouchend = function(e){touchDown=false;}
+ontouchstart = function(e){
+	e.preventDefault();
+	touchDown=true;
+}
+ontouchend = function(e){
+	e.preventDefault();
+	touchDown=false;
+}
 	
-onchangedtouches = function(e) {
+onchangetouch = function(e) {
+	e.preventDefault();
 	let touches = e.changedTouches;
 	alert("onchangedTouches");
 	for(let i=0; i < e.changedTouches.length; i++) {
-		touchId = e.changedTouches[0].identifier;
-		tx = e.changedTouches[0].pageX;
-		ty = e.changedTouches[0].pageY;
+		touchId = e.changedTouches[i].identifier;
+		tx = e.changedTouches[i].pageX;
+		ty = e.changedTouches[i].pageY;
 	}
 }
 </script>
