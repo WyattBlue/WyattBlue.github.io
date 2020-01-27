@@ -95,12 +95,12 @@ ontouchstart = function(e){touchDown=true;}
 ontouchend = function(e){touchDown=false;}
 	
 onchangedtouches = function(e) {
-	let touches = event.changedTouches;
+	let touches = e.changedTouches;
 	alert("onchangedTouches");
-    for(let i=0; i < event.changedTouches.length; i++) {
-        touchId = event.changedTouches[0].identifier;
-        tx = event.changedTouches[0].pageX;
-        ty = event.changedTouches[0].pageY;
+    for(let i=0; i < e.changedTouches.length; i++) {
+        touchId = e.changedTouches[0].identifier;
+        tx = e.changedTouches[0].pageX;
+        ty = e.changedTouches[0].pageY;
     }
 }
 </script>
