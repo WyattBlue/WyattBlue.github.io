@@ -40,7 +40,6 @@ let hold=0;
 		item.parentNode.removeChild(item);
 	}
 
-	console.log(cn);
 	for(let i=0;i<cn.length;i++){
 		let circle=document.createElement('span');
 
@@ -75,14 +74,10 @@ let hold=0;
 		cx.push(x);
 		cy.push(y);
 		hold=1;
-
 	}
 	if(mouseDown==false){
 		hold=0;
 	}
-
-
-
 	setTimeout(main,20);
 
 }();
@@ -96,7 +91,8 @@ ontouchend = function(e){mouseDown=false;}
 	
 onchangedTouches = function(e) {
     //var touches = event.changedTouches;
-    for(var i=0; i < event.changedTouches.length; i++) {
+	alert("onchangedTouches");
+    for(let i=0; i < event.changedTouches.length; i++) {
         //touchId = event.changedTouches[0].identifier;
         x = event.changedTouches[0].pageX;
         y = event.changedTouches[0].pageY;
