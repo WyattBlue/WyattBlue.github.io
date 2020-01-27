@@ -1,0 +1,97 @@
+<html>
+<head>
+	<title>Bubbles</title>
+</head>
+<body>
+
+<script>
+
+
+for(let i=0;i<4;i++){
+	let p=document.createElement('p');
+	p.style.fontSize="30px";
+	p.style.fontFamily="Sans-Serif";
+	p.style.textAlign="left";
+	p.style.margin="5px";
+	document.body.appendChild(p);
+}
+
+let n=0;
+let cn=[];
+let cx=[];
+let cy=[];
+let x=0;
+let y=0;
+let mouseDown = false;
+
+let hold=0;
+
+!function main(){
+
+	n++;
+	document.getElementsByTagName('p')[0].innerHTML="Click Around!";
+	document.getElementsByTagName('p')[1].innerHTML="mouse x "+x;
+	document.getElementsByTagName('p')[2].innerHTML="mouse y "+y;
+	document.getElementsByTagName('p')[3].innerHTML="mouse down: "+mouseDown;
+
+	var list = document.getElementsByTagName("span");
+	for (var k = list.length - 1; k >= 0; k--) {
+		var item = list[k];
+		item.parentNode.removeChild(item);
+	}
+
+	console.log(cn);
+	for(let i=0;i<cn.length;i++){
+		let circle=document.createElement('span');
+
+		let opa = 1-Math.log((n-cn[i])/70)-0.2;		
+		if(opa<0){
+			cn.shift();
+			cx.shift();
+			cy.shift();
+			i--;
+		}
+		else {
+
+			circle.style.position="absolute";
+			let radius=Math.log((n-cn[i])*2)*30;
+			
+			circle.style.top=cy[i]-radius/2;
+			circle.style.left=cx[i]-radius/2;
+
+			circle.style.opacity=opa;
+
+			circle.style.borderRadius="50%";
+			circle.style.backgroundColor="#bbb";
+			circle.style.boxShadow="0 0 4px #111, 0 0 10px #222;"
+			circle.style.height=radius+"px";
+			circle.style.width=radius+"px";
+			document.body.appendChild(circle);	
+		}	
+	}
+
+	if(mouseDown==true && hold==0){
+		cn.push(n);
+		cx.push(x);
+		cy.push(y);
+		hold=1;
+
+	}
+	if(mouseDown==false){
+		hold=0;
+	}
+
+
+
+	setTimeout(main,20);
+
+}();
+
+
+onmousemove = function(e){x=e.clientX; y=e.clientY}
+onmousedown = function(e){mouseDown=true;}
+onmouseup = function(e){mouseDown=false;}
+
+</script>
+</body>
+</html>
