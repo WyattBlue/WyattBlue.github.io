@@ -93,6 +93,10 @@ onmousedown = function(e){mouseDown=true;}
 onmouseup = function(e){mouseDown=false;}
 ontouchstart = function(e){
 	e.preventDefault();
+	for(let i=0; i < e.changedTouches.length; i++) {
+		tx = e.changedTouches[i].pageX;
+		ty = e.changedTouches[i].pageY;
+	}
 	touchDown=true;
 }
 ontouchend = function(e){
