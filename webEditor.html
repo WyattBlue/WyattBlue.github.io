@@ -117,7 +117,7 @@ if(edit.value!=""){
 	rslt.value="";
 }
 
-let editValueFormatted = (edit.value).split("\n").join("<br>").split(";").join("<sc>").split("=").join("<eq>").split("/t").join("<tab>");
+let editValueFormatted = (edit.value).split("\n").join("<br>").split(";").join("<sc>").split("=").join("<eq>").split("\t").join("<tab>");
 document.cookie = "text="+editValueFormatted;
 setTimeout(main,30);
 
