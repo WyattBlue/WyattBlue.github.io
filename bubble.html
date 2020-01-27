@@ -7,7 +7,7 @@
 <script>
 
 
-for(let i=0;i<4;i++){
+for(let i=0;i<7;i++){
 	let p=document.createElement('p');
 	p.style.fontSize="30px";
 	p.style.fontFamily="Sans-Serif";
@@ -23,7 +23,9 @@ let cy=[];
 let x=0;
 let y=0;
 let mouseDown = false;
-
+let touchDonw = false;
+let tx=[0];
+let ty=[0];
 let hold=0;
 
 !function main(){
@@ -33,6 +35,9 @@ let hold=0;
 	document.getElementsByTagName('p')[1].innerHTML="mouse x "+x;
 	document.getElementsByTagName('p')[2].innerHTML="mouse y "+y;
 	document.getElementsByTagName('p')[3].innerHTML="mouse down: "+mouseDown;
+	document.getElementsByTagName('p')[4].innerHTML="touch x "+x;
+	document.getElementsByTagName('p')[5].innerHTML="touch y "+x;
+	document.getElementsByTagName('p')[6].innerHTML="touch down: "+touchDown;
 
 	var list = document.getElementsByTagName("span");
 	for (var k = list.length - 1; k >= 0; k--) {
@@ -86,8 +91,8 @@ let hold=0;
 onmousemove = function(e){x=e.clientX; y=e.clientY}
 onmousedown = function(e){mouseDown=true;}
 onmouseup = function(e){mouseDown=false;}
-ontouchstart = function(e){mouseDown=true;}
-ontouchend = function(e){mouseDown=false;}
+ontouchstart = function(e){touchDown=true;}
+ontouchend = function(e){touchDown=false;}
 	
 onchangedtouches = function(e) {
 	let touches = event.changedTouches;
