@@ -31,7 +31,11 @@
 	}
 	#gear{
 		float:left;
-		position:absolute:
+		position:absolute;
+	}
+	#gear:hover{
+		background-color:blue;
+		transform:rotate(12deg);
 	}
 	
 </style>
@@ -45,7 +49,7 @@ by Wyatt Blue
 enter Javascript (JS) code on the left textbox.' 
 spellcheck="false"></textarea>
 <div id="gear">
-	<span onmouseover="gearmove()">⚙</span>
+	<span>⚙</span>
 </div>
 <script>
 
@@ -98,9 +102,10 @@ edit.style.fontSize=(w<=470?font/2:font) + "px";
 rslt.style.height = h-120 + "px";
 rslt.style.marginRight = w*0.01 + "px";
 rslt.style.fontSize=(w<=470?font/2:font) + "px";
-gear.style.fontSize=(w<=470?20:50) + "px";
+gear.style.fontSize=(w<=470?50:50) + "px";
 gear.style.marginLeft = w*0.01 + "px";
-
+gear.style.marginTop = (h*0.88)+"px";
+gear.style.transform="rotate("+gearAngle+"deg)";
 if(w<=470){
 	edit.style.width=w*.46 - 13 +"px";
 	rslt.style.width=w*.46 - 13 +"px";
@@ -157,7 +162,6 @@ function inter(INTERNALedit){
 		let edit;
 		let rslt;
 		let gear;
-		let execute;
 
 		eval(INTERNALedit);
 
@@ -172,11 +176,6 @@ function inter(INTERNALedit){
 	}
 }
 
-function gearmove() {
-	let gear=document.getElementById('gear');
-	gear.style.transform="rotate(13deg)";
-	console.log("Rotate by"+gear.style.transform);
-}
 
 
 </script>
