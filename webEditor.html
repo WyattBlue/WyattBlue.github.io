@@ -29,6 +29,10 @@
 		float:right;
 		overflow-x:hidden;
 	}
+	#gear{
+		float:left;
+		position:absolute:
+	}
 	
 </style>
 </head>
@@ -40,9 +44,9 @@ by Wyatt Blue
 
 enter Javascript (JS) code on the left textbox.' 
 spellcheck="false"></textarea>
-<div>
-<span id="gear" onmouseover="gearmove()">⚙</span>
-	</div>
+<div id="gear">
+	<span onmouseover="gearmove()">⚙</span>
+</div>
 <script>
 
 !function(){
@@ -62,6 +66,7 @@ function getCookie(cname) {
 let edit = document.getElementById('edit');
 let rslt = document.getElementById('rslt');
 let gear = document.getElementById('gear');
+gear.style.position="absolute";
 let execute=false;
 edit.onkeydown=function(){
 	if(event.keyCode===9){
