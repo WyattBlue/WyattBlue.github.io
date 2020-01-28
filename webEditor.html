@@ -29,13 +29,31 @@
 		float:right;
 		overflow-x:hidden;
 	}
-	#gear{
+	div{
+		height:70px;
+		line-height:70px;
 		float:left;
 		position:absolute;
+		margin-top:50%;
+		margin-left:1%;
+		font-size:50px;
+		animation-name:rotOut;
+		animation-duration: 0.3s;
+		
 	}
-	#gear:hover{
-		background-color:blue;
-		transform:rotate(12deg);
+	div:hover {
+		animation-name:rotIn;
+		animation-duration: 0.3s;
+		transform:rotate(90deg);
+	}
+	
+	@keyframes rotIn {
+		from{transform:rotate(0deg);}
+		to{transform:rotate(90deg);}
+	}
+	@keyframes rotOut {
+		from{transform:rotate(90deg);}
+		to{transform:rotate(0deg);}
 	}
 	
 </style>
@@ -48,9 +66,7 @@ by Wyatt Blue
 
 enter Javascript (JS) code on the left textbox.' 
 spellcheck="false"></textarea>
-<div id="gear">
-	<span>⚙</span>
-</div>
+<div id="gear">⚙</div>
 <script>
 
 !function(){
@@ -83,7 +99,6 @@ edit.onkeydown=function(){
 }
 
 let font=30;
-let gearAngle = 0;
 try {
 	edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=").split("<tab>").join("\t");
 }
@@ -102,10 +117,8 @@ edit.style.fontSize=(w<=470?font/2:font) + "px";
 rslt.style.height = h-120 + "px";
 rslt.style.marginRight = w*0.01 + "px";
 rslt.style.fontSize=(w<=470?font/2:font) + "px";
-gear.style.fontSize=(w<=470?50:50) + "px";
-gear.style.marginLeft = w*0.01 + "px";
-gear.style.marginTop = (h*0.88)+"px";
-gear.style.transform="rotate("+gearAngle+"deg)";
+gear.style.marginTop = h*0.87 + "px";
+
 if(w<=470){
 	edit.style.width=w*.46 - 13 +"px";
 	rslt.style.width=w*.46 - 13 +"px";
