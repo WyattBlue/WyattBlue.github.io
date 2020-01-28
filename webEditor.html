@@ -30,17 +30,6 @@
 		overflow-x:hidden;
 	}
 	
-	#gear:hover {
-		-ms-transition: 0.4s ease-in-out;
-		-webkit-transition: 0.4s ease-in-out;
-		-moz-transition: 0.4s ease-in-out;
-		transition: 0.4s ease-in-out;
-		
-		-ms-transform: rotate(120deg); /* IE 9 */
-		-webkit-transform: rotate(120deg); /* Chrome, Safari, Opera */
-		-moz-transform: rotate(120deg); /*firefox*/
-		transform: rotate(120deg);
-	}
 </style>
 </head>
 <body>
@@ -51,7 +40,7 @@ by Wyatt Blue
 
 enter Javascript (JS) code on the left textbox.' 
 spellcheck="false"></textarea>
-<span id="gear" on>⚙</span>
+<span id="gear" onmouseover="gearmove()">⚙</span>
 <script>
 
 !function(){
@@ -83,6 +72,7 @@ edit.onkeydown=function(){
 }
 
 let font=30;
+let gearAngle = 0;
 try {
 	edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=").split("<tab>").join("\t");
 }
@@ -93,6 +83,7 @@ catch(error) {
 !function main(){
 let w = window.innerWidth;
 let h = window.innerHeight;
+
 	
 edit.style.height = h-120 + "px";
 edit.style.marginLeft = w*0.01 + "px";
@@ -173,6 +164,13 @@ function inter(INTERNALedit){
 		return "\n\n"+error;
 	}
 }
+
+function gearmove() {
+	let  gear=document.getElementById('gear');
+	gear.style.transition="transform(120degs)";
+	console.log(gear.style.transition);
+}
+
 
 </script>
 </body>
