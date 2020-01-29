@@ -29,7 +29,7 @@
 		float:right;
 		overflow-x:hidden;
 	}
-	div{
+	#gear{
 		height:70px;
 		line-height:70px;
 		float:left;
@@ -41,7 +41,7 @@
 		animation-duration: 0.3s;
 		
 	}
-	div:hover {
+	#gear:hover {
 		animation-name:rotIn;
 		animation-duration: 0.3s;
 		transform:rotate(90deg);
@@ -56,21 +56,67 @@
 		to{transform:rotate(0deg);}
 	}
 	
+	#settings {
+		position:absolute;
+		top:-1000px;
+		left:50%;
+		
+
+	}
+	#inner {
+		position:relative;
+		left: -50%;
+		background-color:#081818;
+		color:#DDD;
+		font-family:sans-serif;
+		font-size:80px;
+		text-align:center;
+		padding-left:50px;
+		padding-right:50px;
+		border-radius:25px;
+	}
+	
+	button {
+		background-color: #202222;
+		border: none;
+		color: white;
+		font-size:22px;
+	}
+	
 </style>
 </head>
 <body>
-
+<div id="settings">
+	<div id="inner">
+		<p>Settings</p>
+		<button type="button" onclick="goOut()">Done</button>
+	</div>
+</div>
 <textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false" >please enable javascript</textarea>
 <textarea id="rslt" readonly="readonly" placeholder='JS Web Editor 
 by Wyatt Blue 
 
 enter Javascript (JS) code on the left textbox.' 
 spellcheck="false"></textarea>
-<div id="gear">⚙</div>
+<div id="gear" onclick="goIn()"><img src="img/gear.png"></div>
 <script>
 
-!function(){
+//If browser doesn't have 'Include' function, this adds it for them. ⚙
+if (!String.prototype.includes) {
+  String.prototype.includes = function(search, start) {
+    'use strict';
+    if (typeof start !== 'number') {
+      start = 0;
+    }
+    if (start + search.length > this.length) {
+      return false;
+    } else {
+      return this.indexOf(search, start) !== -1;
+    }
+  };
+}
 
+!function(){
 
 function getCookie(cname) {
   let name=cname+"=";
@@ -82,11 +128,10 @@ function getCookie(cname) {
     if(c.indexOf(name)==0)
     	return c.substring(name.length,c.length);
   }return"";}
-
+  
 let edit = document.getElementById('edit');
 let rslt = document.getElementById('rslt');
 let gear = document.getElementById('gear');
-gear.style.position="absolute";
 let execute=false;
 edit.onkeydown=function(){
 	if(event.keyCode===9){
@@ -99,6 +144,7 @@ edit.onkeydown=function(){
 }
 
 let font=30;
+
 try {
 	edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=").split("<tab>").join("\t");
 }
@@ -189,7 +235,16 @@ function inter(INTERNALedit){
 	}
 }
 
-
+function goIn() {
+	document.getElementById('settings').style.transition='all 0.5s ease-out';
+	document.getElementById('settings').style.top='0px';
+	
+}
+function goOut(){
+	document.getElementById('settings').style.transition='all 0.5s ease-in';
+	document.getElementById('settings').style.top='-1000px';
+	
+}
 
 </script>
 </body>
