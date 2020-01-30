@@ -2,6 +2,10 @@
 <html>
 <head>
 <title>Web Editor</title>
+<meta charset="utf-8">
+<meta name="author" content="Wyatt Blue">
+<meta name="description" content="Online JavaScript Editor">
+<meta name="keywords" content="JavaScript, JS Editor, Web Editor, Online Editor">
 <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <style>
@@ -9,6 +13,10 @@
 		background-color: #010;
 		overflow:hidden;
 		touch-action:none;
+	}
+	
+	body, textarea, p, h1, h2, h3, button {
+		transition: color 1s, background-color 1s;
 	}
 	textarea {
 		font-family:monospace;
@@ -21,6 +29,7 @@
 		tab-size:4;
 		-moz-tab-size:4;
 		-o-tab-size: 4;
+		transition: color 1s, background-color 1s;
 	}
 	#edit {
 		float:left;
@@ -81,6 +90,7 @@
 		color: white;
 		font-size:22px;
 		margin-top:20px;
+		cursor:pointer;
 	}
 	p {
 		position:relative;
@@ -159,7 +169,7 @@
 		</label>
 		<p>Dark Mode/Light Mode</p>
 		<label class="switch">
-			<input type="checkbox">
+			<input id="vmode" type="checkbox">
 			<span class="slider round"></span>
 		</label>
 		<br>
@@ -167,7 +177,7 @@
 	</div>
 </div>
 <textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false">please enable javascript</textarea>
-<textarea id="rslt" readonly="readonly" placeholder="JS Web Editor 
+<textarea id="rslt" disabled="disabled" placeholder="JS Web Editor 
 by Wyatt Blue 
 
 enter Javascript (JS) code on the left textbox."
@@ -210,7 +220,7 @@ function getCookie(cname) {
 	}
 	return '';
 }
-  
+
 let edit = document.getElementById('edit');
 let rslt = document.getElementById('rslt');
 let gear = document.getElementById('gear');
@@ -267,6 +277,29 @@ fixed = fixed.split('console.dir').join('INTERNALcon.push');
 fixed = fixed.split('this.').join('');
 fixed = fixed.split('.document').join('');
 fixed = fixed.split('this)').join('');
+
+if(document.getElementById('vmode').checked){
+	rslt.style.background='#DDD';
+	edit.style.background='#DDD';
+	rslt.style.color='#111';
+	edit.style.color='#111';
+	document.body.style.background='#FFF0FF';
+	document.getElementById('inner').style.color='#111';
+	document.getElementById('inner').style.background='#FDFDFD';
+	document.getElementsByTagName('button')[0].style.background='#CFCCCC';
+	document.getElementsByTagName('button')[0].style.color='black';
+	
+} else {
+	rslt.style.background='#111C1A';
+	edit.style.background='#111C1A';
+	rslt.style.color='#DDD';
+	edit.style.color='#DDD';
+	document.body.style.background='#010';
+	document.getElementById('inner').style.color='#DDD';
+	document.getElementById('inner').style.background='#081818';
+	document.getElementsByTagName('button')[0].style.background='#202222';
+	document.getElementsByTagName('button')[0].style.color='white';
+}
 
 if(edit.value != ''){
 	if(execute || active === false){
