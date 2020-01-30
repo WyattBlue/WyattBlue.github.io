@@ -258,6 +258,8 @@ catch(e) {
 }
 try {
 	document.getElementById('tabSpace').value = getCookie('tabSpace');
+    document.getElementById('vmode').checked = getCookie('vmode');
+    document.getElementById('showc').checked = getCookie('showc');
 }
 catch(e){}
 
@@ -336,6 +338,8 @@ document.getElementById('tabDisplay').innerText = 2 ** document.getElementById('
 let editValueFormatted = (edit.value).split('\n').join('<br>').split(';').join('<sc>').split('=').join('<eq>').split('\t').join('<tab>');
 document.cookie = 'text='+editValueFormatted;
 document.cookie = 'tabSpace='+document.getElementById('tabSpace').value;
+document.cookie = 'vmode='+document.getElementById('vmode').checked;
+document.cookie = 'showc='+document.getElementById('showc').checked;
 setTimeout(main,30);
 
 }();
