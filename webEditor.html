@@ -2,8 +2,8 @@
 <html>
 <head>
 <title>Web Editor</title>
-<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-<meta name='apple-mobile-web-app-capable' content='yes' />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+<meta name="apple-mobile-web-app-capable" content="yes">
 <style>
 	body {
 		background-color: #010;
@@ -39,8 +39,7 @@
 		margin-left:1%;
 		font-size:50px;
 		animation-name:rotOut;
-		animation-duration: 0.3s;
-		
+		animation-duration: 0.3s;	
 	}
 	#gear:hover {
 		animation-name:rotIn;
@@ -61,9 +60,7 @@
 		position:absolute;
 		top:-500px;
 		left:50%;
-        width:80%;
-		
-
+		width:80%;
 	}
 	#inner {
 		position:relative;
@@ -75,191 +72,188 @@
 		padding-left:50px;
 		padding-right:50px;
 		border-radius:25px;
-        padding-bottom:30px;
+		padding-bottom:30px;
 	}
-	
-    
+	 
 	button {
 		background-color: #202222;
 		border: none;
 		color: white;
 		font-size:22px;
-        margin-top:20px;
+		margin-top:20px;
 	}
-    p {
-    	position:relative;
-        font-size:23px;
-        margin-top:11px;
-        margin-bottom:5px;
+	p {
+		position:relative;
+		font-size:23px;
+		margin-top:11px;
+		margin-bottom:5px;  
+	}
+	h3 {
+		font-size:40px;
+		text-align:center;
+		margin-bottom:10px;
+	}
+	
+	.switch {
+		position: relative;
+		display: inline-block;
+		width: 60px;
+		height: 34px;
+	}
 
-        
-    }
-    h3 {
-    	font-size:40px;
-        text-align:center;
-        margin-bottom:10px;
-        
-    }
-    
-    
-    
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-  	}
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #bbb;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
 
-  .switch input { 
-        opacity: 0;
-        width: 0;
-        height: 0;
-  	}
+	.slider:before {
+		position: absolute;
+		content: "";
+		height: 26px;
+		width: 26px;
+		left: 4px;
+		bottom: 4px;
+		background-color: white;
+		-webkit-transition: .4s;
+		transition: .2s;
+	}
 
-  .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #bbb;
-        -webkit-transition: .4s;
-        transition: .4s;
-  }
+	input:checked + .slider {
+		background-color: #2196F3;
+	}
 
-  .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .2s;
-  }
+	input:focus + .slider {
+		box-shadow: 0 0 1px #2196F3;
+	}
 
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
+	input:checked + .slider:before {
+		-webkit-transform: translateX(26px);
+		-ms-transform: translateX(26px);
+		transform: translateX(26px);
+	}
 
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
+	.slider.round {
+		border-radius: 34px;
+	}
 
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-
-  .slider.round {
-    border-radius: 34px;
-  }
-
-  .slider.round:before {
-    border-radius: 50%;
-  }
+	.slider.round:before {
+  		border-radius: 50%;
+	}
 </style>
 </head>
 <body>
 <div id="settings">
 	<div id="inner">
 		<h3>Settings</h3>
-        <p>Show Code With Results Page</p>
-        <label class="switch">
-  			<input type="checkbox" checked="checked">
-  			<span class="slider round"></span>
+		<p>Show Code With Results Page</p>
+		<label class="switch">
+			<input id="showc" type="checkbox" checked="checked">
+			<span class="slider round"></span>
 		</label>
-        <p>setting 2</p>
-        <label class="switch">
-  			<input type="checkbox">
-  			<span class="slider round"></span>
+		<p>Dark Mode/Light Mode</p>
+		<label class="switch">
+			<input type="checkbox">
+			<span class="slider round"></span>
 		</label>
-        <br>
+		<br>
 		<button type="button" onclick="goOut()">Done</button>
 	</div>
 </div>
-<textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false" >please enable javascript</textarea>
-<textarea id="rslt" readonly="readonly" placeholder='JS Web Editor 
+<textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false">please enable javascript</textarea>
+<textarea id="rslt" readonly="readonly" placeholder="JS Web Editor 
 by Wyatt Blue 
 
-enter Javascript (JS) code on the left textbox.' 
+enter Javascript (JS) code on the left textbox."
 spellcheck="false"></textarea>
 <div id="gear" onclick="goIn()">⚙</div>
 <script>
 
+let active = true;
+
 //If browser doesn't have 'Include' function, this adds it for them. ⚙
-if (!String.prototype.includes) {
-  String.prototype.includes = function(search, start) {
-    'use strict';
-    if (typeof start !== 'number') {
-      start = 0;
-    }
-    if (start + search.length > this.length) {
-      return false;
-    } else {
-      return this.indexOf(search, start) !== -1;
-    }
-  };
+if(!String.prototype.includes) {
+	String.prototype.includes = function(search,start) {
+		'use strict';
+		if(typeof start !== 'number') {
+			start = 0;
+		}
+		if(start + search.length > this.length) {
+			return false;
+		} else {
+			return this.indexOf(search, start) !== -1;
+		}
+	};
 }
 
 !function(){
 
+let execute = false;
+
 function getCookie(cname) {
-  let name=cname+"=";
-  let decodedCookie=decodeURIComponent(document.cookie);
-  let ca=decodedCookie.split(';');
-  for(let i=0;i<ca.length;i++){
-    let c=ca[i];
-    while(c.charAt(0)==' '){c=c.substring(1);}
-    if(c.indexOf(name)==0)
-    	return c.substring(name.length,c.length);
-  }return"";}
+	let name = cname+'=';
+	let decodedCookie=decodeURIComponent(document.cookie);
+	let ca = decodedCookie.split(';');
+	for(let i=0;i<ca.length;i++){
+		let c = ca[i];
+		while(c.charAt(0) === ' '){
+			c = c.substring(1);
+		}
+		if(c.indexOf(name) === 0)
+			return c.substring(name.length,c.length);
+	}
+	return '';
+}
   
 let edit = document.getElementById('edit');
 let rslt = document.getElementById('rslt');
 let gear = document.getElementById('gear');
-let execute=false;
+
 edit.onkeydown=function(){
-	if(event.keyCode===9){
-		let v=this.value,s=this.selectionStart,e=this.selectionEnd;
-		this.value=v.substring(0,s)+'\t'+v.substring(e);
-		this.selectionStart=this.selectionEnd=s+1;
+	if(event.keyCode === 9){
+		let v = this.value;
+		let s = this.selectionStart;
+		let e = this.selectionEnd;
+		this.value = v.substring(0,s)+'\t'+v.substring(e);
+		this.selectionStart = this.selectionEnd=s+1;
 		return false;
 	}
-	execute=true;
+	execute = true;
 }
 
-let font=30;
+let font = 30;
 
 try {
-	edit.value=getCookie("text").split("<br>").join('\n').split("<sc>").join(";").split("<eq>").join("=").split("<tab>").join("\t");
+	edit.value = getCookie('text').split('<br>').join('\n').split('<sc>').join(';').split('<eq>').join('=').split('<tab>').join('\t');
 }
-catch(error) {
-	edit.value='';
+catch(e) {
+	edit.value = '';
 }
 
 !function main(){
 let w = window.innerWidth;
 let h = window.innerHeight;
-
 	
-edit.style.height = h-120 + "px";
-edit.style.marginLeft = w*0.01 + "px";
-edit.style.fontSize=(w<=470?font/2:font) + "px";
-rslt.style.height = h-120 + "px";
-rslt.style.marginRight = w*0.01 + "px";
-rslt.style.fontSize=(w<=470?font/2:font) + "px";
-gear.style.marginTop = h*0.87 + "px";
+edit.style.height = h-120 + 'px';
+edit.style.marginLeft = w*0.01 + 'px';
+edit.style.fontSize = (w<=470?font/2:font) + 'px';
+rslt.style.height = h-120 + 'px';
+rslt.style.marginRight = w*0.01 + 'px';
+rslt.style.fontSize = (w<=470?font/2:font) + 'px';
+gear.style.marginTop = h*0.87 + 'px';
 
 if(w<=470){
-	edit.style.width=w*.46 - 13 +"px";
-	rslt.style.width=w*.46 - 13 +"px";
-}else{
-	edit.style.width="48%";
-	rslt.style.width="48%";
+	edit.style.width = w*.46 - 13 +'px';
+	rslt.style.width = w*.46 - 13 +'px';
+} else {
+	edit.style.width = '48%';
+	rslt.style.width = '48%';
 }
 
 edit.value = edit.value.split('“').join('"');
@@ -268,24 +262,27 @@ edit.value = edit.value.split("‘").join("'");
 edit.value = edit.value.split("’").join("'");
 
 let fixed = edit.value;
-fixed = fixed.split("console.log").join("INTERNALcon.push");
-fixed = fixed.split("console.dir").join("INTERNALcon.push");
-fixed = fixed.split("this.").join("");
-fixed = fixed.split(".document").join("");
-fixed = fixed.split("this)").join("");
+fixed = fixed.split('console.log').join('INTERNALcon.push');
+fixed = fixed.split('console.dir').join('INTERNALcon.push');
+fixed = fixed.split('this.').join('');
+fixed = fixed.split('.document').join('');
+fixed = fixed.split('this)').join('');
 
-
-if(edit.value!=""){
-	if(execute){
-		rslt.value = edit.value + inter(fixed);
-		execute=false;
+if(edit.value != ''){
+	if(execute || active === false){
+		if(document.getElementById('showc').checked){
+			rslt.value = edit.value + '\n' + inter(fixed);
+		} else {
+			rslt.value = inter(fixed);
+		}
+		execute = false;
 	}
-}else{
-	rslt.value="";
+} else {
+	rslt.value = '';
 }
 
-let editValueFormatted = (edit.value).split("\n").join("<br>").split(";").join("<sc>").split("=").join("<eq>").split("\t").join("<tab>");
-document.cookie = "text="+editValueFormatted;
+let editValueFormatted = (edit.value).split('\n').join('<br>').split(';').join('<sc>').split('=').join('<eq>').split('\t').join('<tab>');
+document.cookie = 'text='+editValueFormatted;
 setTimeout(main,30);
 
 }();
@@ -295,14 +292,19 @@ setTimeout(main,30);
 function inter(INTERNALedit){
 	INTERNALcon = [];
 	try {
-		if(INTERNALedit.includes('while(true){') && !INTERNALedit.includes('break;')){
-			return edit.value+"\n\nInfinite Loop Detected";
-		}
-		if(INTERNALedit.includes('while(1){') && !INTERNALedit.includes('break;')){
-			return edit.value+"\n\nInfinite Loop Detected";
-		}
-		if(INTERNALedit.includes('for(;;){') && !INTERNALedit.includes('break;')){
-			return edit.value+"\n\nInfinite Loop Detected";
+		if(INTERNALedit.includes('break;') === false){
+			if(INTERNALedit.includes('while(true){')){
+				return '\nLogic Error: Infinite Loop Detected';
+			}
+			if(INTERNALedit.includes('while(1){')){
+				return '\nLogic Error: Infinite Loop Detected';
+			}
+			if(INTERNALedit.includes('for(;;){')){
+				return '\nLogic Error: Infinite Loop Detected';
+			}
+			if(INTERNALedit.includes('for(;;);')){
+				return '\nLogic Error: Infinite Loop Detected';
+			}
 		}
 
 		let document;
@@ -310,32 +312,32 @@ function inter(INTERNALedit){
 		let edit;
 		let rslt;
 		let gear;
-        let settings;
-        let inner;
-        
+		let settings;
+		let inner;
 
 		eval(INTERNALedit);
 
-		let INTERNALstring = "";
+		let INTERNALstring = '';
 		for(let i=0;i<INTERNALcon.length;i++){
-			INTERNALstring+="\n > "+INTERNALcon[i];
+			INTERNALstring += ' > '+INTERNALcon[i]+'\n';
 		}
-		return "\n"+INTERNALstring;
+		return INTERNALstring;
 	}
-	catch(error) {
-		return "\n\n"+error;
+	catch(e) {
+		return '\n'+e;
 	}
 }
 
 function goIn() {
 	document.getElementById('settings').style.transition='all 0.5s ease-out';
 	document.getElementById('settings').style.top='0px';
+	active = false;
 	
 }
 function goOut(){
 	document.getElementById('settings').style.transition='all 0.5s ease-in';
-	document.getElementById('settings').style.top='-500px';
-	
+	document.getElementById('settings').style.top='-500px';	
+	active = true;
 }
 
 </script>
