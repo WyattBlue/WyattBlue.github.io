@@ -177,7 +177,7 @@
 	</div>
 </div>
 <textarea id="edit" autocapitalize="off" autocomplete="off" placeholder='console.log("Hello World");' spellcheck="false">please enable javascript</textarea>
-<textarea id="rslt" disabled="disabled" placeholder="JS Web Editor 
+<textarea id="rslt" readonly="readonly" placeholder="JS Web Editor 
 by Wyatt Blue 
 
 enter Javascript (JS) code on the left textbox."
@@ -274,9 +274,9 @@ edit.value = edit.value.split("’").join("'");
 let fixed = edit.value;
 fixed = fixed.split('console.log').join('INTERNALcon.push');
 fixed = fixed.split('console.dir').join('INTERNALcon.push');
-fixed = fixed.split('this.').join('');
-fixed = fixed.split('.document').join('');
-fixed = fixed.split('this)').join('');
+fixed = fixed.split('this.').join(' ');
+fixed = fixed.split('.document').join(' ');
+fixed = fixed.split('this)').join(' ');
 
 if(document.getElementById('vmode').checked){
 	rslt.style.background='#DDD';
