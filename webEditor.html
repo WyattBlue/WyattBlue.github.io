@@ -77,6 +77,7 @@
 		background-color:#081818;
 		color:#DDD;
 		font-family:sans-serif;
+        font-size:23px;
 		text-align:center;
 		padding-left:50px;
 		padding-right:50px;
@@ -93,8 +94,6 @@
 		cursor:pointer;
 	}
 	p {
-		position:relative;
-		font-size:23px;
 		margin-top:11px;
 		margin-bottom:5px;  
 	}
@@ -156,6 +155,9 @@
 	.slider.round:before {
   		border-radius: 50%;
 	}
+    .inline {
+    	display:inline;
+    }
 </style>
 </head>
 <body>
@@ -167,11 +169,19 @@
 			<input id="showc" type="checkbox" checked="checked">
 			<span class="slider round"></span>
 		</label>
+        <br>
 		<p>Dark Mode/Light Mode</p>
 		<label class="switch">
 			<input id="vmode" type="checkbox">
 			<span class="slider round"></span>
 		</label>
+        <br>
+		<form>
+			<p class="inline">Tab Spaces</p>
+			<input id="tabSpace" type="range" name="points" min="1" max="3">
+            <p class="inline" id="tabDisplay">4</p>
+        </form>
+
 		<br>
 		<button type="button" onclick="goOut()">Done</button>
 	</div>
@@ -241,10 +251,15 @@ let font = 30;
 
 try {
 	edit.value = getCookie('text').split('<br>').join('\n').split('<sc>').join(';').split('<eq>').join('=').split('<tab>').join('\t');
+    
 }
 catch(e) {
 	edit.value = '';
 }
+try {
+	document.getElementById('tabSpace').value = getCookie('tabSpace');
+}
+catch(e){}
 
 !function main(){
 let w = window.innerWidth;
@@ -314,8 +329,13 @@ if(edit.value != ''){
 	rslt.value = '';
 }
 
+edit.style.tabSize= 2 ** document.getElementById('tabSpace').value;
+rslt.style.tabSize= 2 ** document.getElementById('tabSpace').value;
+document.getElementById('tabDisplay').innerText = 2 ** document.getElementById('tabSpace').value;
+
 let editValueFormatted = (edit.value).split('\n').join('<br>').split(';').join('<sc>').split('=').join('<eq>').split('\t').join('<tab>');
 document.cookie = 'text='+editValueFormatted;
+document.cookie = 'tabSpace='+document.getElementById('tabSpace').value;
 setTimeout(main,30);
 
 }();
