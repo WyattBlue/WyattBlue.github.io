@@ -262,12 +262,8 @@ catch(e) {
 }
 try {
 	let viewmode = getCookie('vmode');
-	if(viewmode == true){
-		document.getElementById('vmode').checked=true;
-	}
-	if(getCookie('showc')==false){
-		document.getElementById('showc').checked=false;
-	}
+	document.getElementById('vmode').checked=true;
+	document.getElementById('showc').checked=false;
 	document.getElementById('tabSpace').value = getCookie('tabSpace');
 }
 catch(e){}
