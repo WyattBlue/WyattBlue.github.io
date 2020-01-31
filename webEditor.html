@@ -197,6 +197,8 @@ spellcheck="false"></textarea>
 
 let active = true;
 let viewmode = false;
+	
+//might not be needed, but working with cookies feels like working with black magic
 let firstexe = true;
 
 //If browser doesn't have 'Include' function, this adds it for them. ⚙
@@ -260,6 +262,12 @@ catch(e) {
 }
 try {
 	let viewmode = getCookie('vmode');
+	if(viewmode == true){
+		document.getElementById('vmode').checked==true;
+	}
+	if(getCookie('showc')==false){
+		document.getElementById('showc').checked==false;
+	}
 	document.getElementById('tabSpace').value = getCookie('tabSpace');
 	alert(viewmode);
 }
