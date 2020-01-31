@@ -260,11 +260,8 @@ catch(e) {
 }
 try {
 	let viewmode = getCookie('vmode');
-	console.log(viewmode);
 	document.getElementById('tabSpace').value = getCookie('tabSpace');
-	document.getElementById('vmode').checked = viewmode;
-	document.getElementById('showc').checked = getCookie('showc');
-	alert(document.getElementById('vmode').checked+' , '+viewmode);
+	alert(viewmode);
 }
 catch(e){}
 
@@ -300,7 +297,7 @@ fixed = fixed.split('this.').join(' ');
 fixed = fixed.split('.document').join(' ');
 fixed = fixed.split('this)').join(' ');
 
-if(document.getElementById('vmode').checked || (firstexe && !viewmode)){
+if( (document.getElementById('vmode').checked && !firstexe) || (firstexe && !viewmode)){
 	rslt.style.background='#DDD';
 	edit.style.background='#DDD';
 	rslt.style.color='#111';
