@@ -196,10 +196,6 @@ spellcheck="false"></textarea>
 <script>
 
 let active = true;
-let viewmode = false;
-	
-//might not be needed, but working with cookies feels like working with black magic
-let firstexe = true;
 
 //If browser doesn't have 'Include' function, this adds it for them. ⚙
 if(!String.prototype.includes) {
@@ -261,9 +257,8 @@ catch(e) {
 	edit.value = '';
 }
 try {
-	let viewmode = getCookie('vmode');
-	document.getElementById('vmode').checked=true;
-	document.getElementById('showc').checked=false;
+	document.getElementById('vmode').checked = (getCookie('vmode') == 'true');
+	document.getElementById('showc').checked = (getCookie('showc') == 'true');
 	document.getElementById('tabSpace').value = getCookie('tabSpace');
 }
 catch(e){}
