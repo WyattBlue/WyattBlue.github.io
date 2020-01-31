@@ -263,13 +263,12 @@ catch(e) {
 try {
 	let viewmode = getCookie('vmode');
 	if(viewmode == true){
-		document.getElementById('vmode').checked==true;
+		document.getElementById('vmode').checked=true;
 	}
 	if(getCookie('showc')==false){
-		document.getElementById('showc').checked==false;
+		document.getElementById('showc').checked=false;
 	}
 	document.getElementById('tabSpace').value = getCookie('tabSpace');
-	alert(viewmode);
 }
 catch(e){}
 
@@ -305,7 +304,7 @@ fixed = fixed.split('this.').join(' ');
 fixed = fixed.split('.document').join(' ');
 fixed = fixed.split('this)').join(' ');
 
-if( (document.getElementById('vmode').checked && !firstexe) || (firstexe && !viewmode)){
+if( (document.getElementById('vmode').checked){
 	rslt.style.background='#DDD';
 	edit.style.background='#DDD';
 	rslt.style.color='#111';
@@ -352,7 +351,6 @@ document.cookie = 'text='+editValueFormatted;
 document.cookie = 'tabSpace='+document.getElementById('tabSpace').value;
 document.cookie = 'vmode='+document.getElementById('vmode').checked;
 document.cookie = 'showc='+document.getElementById('showc').checked;
-firstexe= false;
 	
 setTimeout(main,30);
 
