@@ -257,11 +257,12 @@ catch(e) {
 	edit.value = '';
 }
 try {
-	alert('vmode (cookie) :' + getCookie('vmode') );
+	let viewmode = getCookie('vmode');
+	console.log(viewmode);
 	document.getElementById('tabSpace').value = getCookie('tabSpace');
-	document.getElementById('vmode').checked = getCookie('vmode');
+	document.getElementById('vmode').checked = viewmode;
 	document.getElementById('showc').checked = getCookie('showc');
-	alert(document.getElementById('vmode').checked);
+	alert(document.getElementById('vmode').checked+' , '+viewmode);
 }
 catch(e){}
 
