@@ -300,7 +300,7 @@ fixed = fixed.split('this.').join(' ');
 fixed = fixed.split('.document').join(' ');
 fixed = fixed.split('this)').join(' ');
 
-if(document.getElementById('vmode').checked){
+if(document.getElementById('vmode').checked || (firstexe && !viewmode)){
 	rslt.style.background='#DDD';
 	edit.style.background='#DDD';
 	rslt.style.color='#111';
@@ -340,16 +340,14 @@ edit.style.tabSize= 2 ** document.getElementById('tabSpace').value;
 rslt.style.tabSize= 2 ** document.getElementById('tabSpace').value;
 document.getElementById('tabDisplay').innerText = 2 ** document.getElementById('tabSpace').value;
 	
-if(firstexe === false) {
+
 
 let editValueFormatted = (edit.value).split('\n').join('<br>').split(';').join('<sc>').split('=').join('<eq>').split('\t').join('<tab>');
 document.cookie = 'text='+editValueFormatted;
 document.cookie = 'tabSpace='+document.getElementById('tabSpace').value;
 document.cookie = 'vmode='+document.getElementById('vmode').checked;
 document.cookie = 'showc='+document.getElementById('showc').checked;
-} else {
-	firstexe=false;	
-}
+
 setTimeout(main,30);
 
 }();
