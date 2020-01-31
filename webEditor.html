@@ -196,6 +196,8 @@ spellcheck="false"></textarea>
 <script>
 
 let active = true;
+let viewmode = false;
+let firstexe = true;
 
 //If browser doesn't have 'Include' function, this adds it for them. ⚙
 if(!String.prototype.includes) {
@@ -337,12 +339,17 @@ if(edit.value != ''){
 edit.style.tabSize= 2 ** document.getElementById('tabSpace').value;
 rslt.style.tabSize= 2 ** document.getElementById('tabSpace').value;
 document.getElementById('tabDisplay').innerText = 2 ** document.getElementById('tabSpace').value;
+	
+if(firstexe === false) {
 
 let editValueFormatted = (edit.value).split('\n').join('<br>').split(';').join('<sc>').split('=').join('<eq>').split('\t').join('<tab>');
 document.cookie = 'text='+editValueFormatted;
 document.cookie = 'tabSpace='+document.getElementById('tabSpace').value;
 document.cookie = 'vmode='+document.getElementById('vmode').checked;
 document.cookie = 'showc='+document.getElementById('showc').checked;
+} else {
+	firstexe=false;	
+}
 setTimeout(main,30);
 
 }();
