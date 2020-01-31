@@ -258,6 +258,7 @@ catch(e) {
 }
 try {
 	alert(document.getElementById('vmode').checked);
+	alert('cookie :' + document.cookie);
 	document.getElementById('tabSpace').value = getCookie('tabSpace');
 	document.getElementById('vmode').checked = getCookie('vmode');
 	document.getElementById('showc').checked = getCookie('showc');
