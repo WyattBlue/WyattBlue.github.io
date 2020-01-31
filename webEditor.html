@@ -374,9 +374,9 @@ function inter(INTERNALedit){
 		let gear;
 		let settings;
 		let inner;
-
-		eval(INTERNALedit);
-
+		if(active==true){
+			eval(INTERNALedit);
+		}
 		let INTERNALstring = '';
 		for(let i=0;i<INTERNALcon.length;i++){
 			INTERNALstring += ' > '+INTERNALcon[i]+'\n';
