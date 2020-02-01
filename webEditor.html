@@ -375,7 +375,7 @@ function inter(INTERNALedit){
 		let settings;
 		let inner;
 		if(active==true){
-			eval(INTERNALedit);
+			eval('"use strict";'+INTERNALedit);
 		} else {
 			return oldCode;	
 		}
