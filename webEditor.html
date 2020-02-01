@@ -296,6 +296,8 @@ fixed = fixed.split('.document').join(' ');
 fixed = fixed.split('this)').join(' ');
 fixed = fixed.split('eval').join(' ');
 fixed = fixed.split('Function').join('function');
+fixed = fixed.split(' constructor').join(' ');
+fixed = fixed.split('.constructor').join(' ');
 
 if(document.getElementById('vmode').checked){
 	rslt.style.background='#DDD';
