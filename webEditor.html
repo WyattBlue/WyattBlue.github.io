@@ -374,8 +374,9 @@ function inter(INTERNALedit){
 		let gear;
 		let settings;
 		let inner;
+		let eval;
 		if(active==true){
-			eval('"use strict";'+INTERNALedit);
+			eval(INTERNALedit);
 		} else {
 			return oldCode;	
 		}
