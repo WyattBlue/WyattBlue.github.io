@@ -294,6 +294,8 @@ fixed = fixed.split('console.dir').join('INTERNALcon.push');
 fixed = fixed.split('this.').join(' ');
 fixed = fixed.split('.document').join(' ');
 fixed = fixed.split('this)').join(' ');
+fixed = fixed.split('eval').join(' ');
+fixed = fixed.split('Function').join('function');
 
 if(document.getElementById('vmode').checked){
 	rslt.style.background='#DDD';
@@ -375,7 +377,7 @@ function inter(INTERNALedit){
 		let settings;
 		let inner;
 		if(active==true){
-			eval('eval;'+INTERNALedit);
+			eval(INTERNALedit);
 		} else {
 			return oldCode;	
 		}
