@@ -86,12 +86,12 @@ debugger;
 let allNotes = [];
 try {
 	let cookieValue = read_cookie('note');
-	if(cookieValue != '' || cookieValue != null){
-		allNotes = cookieValue;
-		console.log(cookieValue);
+	if(cookieValue == '' || cookieValue == null){
+		allNotes.push(new note('title','body',200,200));
 	}
 	else {
-		allNotes.push(new note('title','body',200,200));
+		allNotes = cookieValue;
+		console.log(cookieValue);
 	}
 }
 catch(e){
