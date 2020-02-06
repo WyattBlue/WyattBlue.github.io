@@ -85,17 +85,16 @@
 debugger;
 let allNotes = [];
 try {
-	if(read_cookie('note') != ''){
-		allNotes = read_cookie('note');
-		console.log(read_cookie('note'));
+	let cookieValue = read_cookie('note');
+	if(cookieValue != '' || cookieValue != undefined){
+		allNotes = cookieValue;
+		console.log(cookieValue);
 	}
 	else {
-		allNotes = [];
 		allNotes.push(new note('title','body',200,200));
 	}
 }
 catch(e){
-	allNotes = [];
 	allNotes.push(new note('title','body',200,200));
 }
 let x;
