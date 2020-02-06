@@ -180,7 +180,8 @@ onmousedown = function(e){
 			}
 			if(value == 'Load'){
 				//bake_cookie('note',prompt('load data'));
-				allNotes = prompt('load data');
+				rawData = prompt('load data');
+				eval('allNotes = '+rawData+';');
 			}
 		}
 		menu = 0;
