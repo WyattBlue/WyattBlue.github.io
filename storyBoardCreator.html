@@ -84,11 +84,16 @@
 
 <script>
 try {
-	if(document.cookie != ''){
+	if(read_cookie('note') == ''){
 		allNotes = read_cookie('note');
 	}
+	else {
+		allNotes = [];
+	}
 }
-catch(e){}
+catch(e){
+	allNotes = [];
+}
 let x;
 let y;
 let rightClick = 0;
@@ -144,8 +149,6 @@ let print = [name, '=', JSON.stringify(value), '; domain=.', window.location.hos
 	console.log(print);
 	document.cookie = print;
 }
-
-	document.getElementById('debug').innerText=dragging;
 
 	if(menu){
 		document.getElementById('custom-menu').className="show";
