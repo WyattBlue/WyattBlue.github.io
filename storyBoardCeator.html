@@ -1,0 +1,279 @@
+<!doctype html>
+<html>
+<head>
+<style>
+	body {
+		background-color:#EEE;
+	}
+	div {
+		position:absolute;
+	}
+	.inner {
+		background-color:#C94;
+		border-radius:5px;
+		font-family:sans-serif;
+		padding-left:10px;
+		padding-right:10px;
+		cursor:text;
+		min-width: 200px;
+	}
+	.a-header{
+		background-color:#D11;
+		border-radius:30px;
+		padding:15px;
+		width:1px;
+		cursor:move;
+		position: relative; 
+		left: 50%;
+		transform: translateX(-50%);
+		top:-10px;
+
+	}
+	h1 {
+		font-size:35px;
+		font-weight:bold;
+		margin:0px;
+		margin-bottom:8px;
+	}
+	p {
+		font-size:20px;
+		margin-bottom:5px;
+		margin-top:4px;
+	}
+
+	ul {
+		position:absolute;
+		font-family:sans-serif;
+		font-size:22px;
+		font-weight:bold;
+		color:#444;
+		list-style:none;
+		background-color:white;
+		color:grey;
+		border: 1px solid grey;
+		display: none;
+		white-space: nowrap;
+		padding:0;
+	}
+	#custom-menu li {
+		padding: 8px 12px;
+		cursor: pointer;
+	}	
+
+	#custom-menu li:hover {
+		background-color: #DEF;
+	}
+
+	.show {
+		display:block;
+	}
+
+	.hide {
+		display:none;
+	}
+</style>
+</head>
+<body>
+<h1 id="debug">uh oh</h1>
+
+<ul id='custom-menu'>
+  <li>Create New</li>
+  <li>Edit Selected</li>
+  <li>Delete Selected</li>
+</ul>
+
+<script>
+try {
+	if(document.cookie != ''){
+		allNotes = read_cookie('note');
+	}
+}
+catch(e){}
+let x;
+let y;
+let rightClick = 0;
+let leftClick = 0;
+let menu = 0;
+let dragging = 0;
+
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+
+//constructor
+function note(t,b,x,y){
+	this.title = t;
+	this.body = b;
+	this.x = x;
+	this.y = y;
+}
+let allNotes;
+if(document.cookie ==''){
+	allNotes = [];
+} else {
+	allNotes = read_cookie('note');
+}
+
+
+!function main(){
+	if(dragging == 0){
+		clear(document.getElementsByTagName('div'));
+		for(let i = 0;i < allNotes.length;i++){
+			htmlDiv = document.createElement('div');
+			htmlDiv.id=i; 
+			htmlDiv.innerHTML = '<div class="inner"><div class="a-header" id="'+i+'header"></div><h1 contentEditable="true" >'+allNotes[i].title+'</h1><p contentEditable="true" >'+allNotes[i].body+'</p></div>';
+			document.body.appendChild(htmlDiv);
+			let offX = htmlDiv.offsetWidth;
+			let offY = htmlDiv.offsetHeight;
+			htmlDiv.style.left = (allNotes[i].x-offX/2)+'px';
+			htmlDiv.style.top = (allNotes[i].y-offY/2)+'px';
+			dragElement(htmlDiv);
+		}
+	} else {
+		for(let i = 0;i< allNotes.length;i++){
+			try {
+			allNotes[i].title = document.getElementById(i+'').getElementsByTagName('h1')[0].innerText;
+			allNotes[i].body = document.getElementById(i+'').getElementsByTagName('p')[0].innerText;
+			}
+			catch(e){}
+		}
+	}
+
+	bake_cookie('note',allNotes);
+	function bake_cookie(name, value) {
+let print = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
+	console.log(print);
+	document.cookie = print;
+}
+
+	document.getElementById('debug').innerText=dragging;
+
+	if(menu){
+		document.getElementById('custom-menu').className="show";
+	} else {
+		document.getElementById('custom-menu').className="hide";
+	}
+
+	setTimeout(main,30);
+}();
+
+onmousemove = function(e){
+	x = e.clientX;
+	y = e.clientY;
+}
+
+onmousedown = function(e){
+	dragging = 1;
+	if(e.which == 3){
+		rightClick=1;
+		menu = (menu+1)%2;
+		if(menu == 1){
+			let menu = document.getElementById('custom-menu');
+			menu.style.left = e.clientX + "px";
+			menu.style.top = e.clientY + "px";
+		}
+	}
+	if(e.which == 1){
+		leftClick=1;
+		let value;
+		let block;
+		try {
+			value = touch().innerHTML;
+			block = touch().tagName;
+		}
+		catch(e){
+			value = 'error';
+		}
+		if(block == 'LI') {
+			if(value == 'Create New'){
+				allNotes.push(new note('title','about',e.clientX,e.clinetY));
+			}
+		}
+		menu = 0;
+	}
+}
+onmouseup = function(e){
+	if(e.which == 3)rightClick=0;
+	if(e.which == 1)leftClick=0;
+	try {
+		let asdf = touch().tagName;
+		if(asdf == "H1" || asdf == "P"){}else{dragging=0;}
+	}
+	catch(e){dragging = 0;}
+}
+
+
+function clear(tag){
+	let spans = tag;
+	let len = spans.length;
+	for(let i=len-1; i>=0; i--){
+		let item = spans[i];
+		item.parentNode.removeChild(item);
+	}	
+}
+
+
+function dragElement(elmnt) {
+	let moveId = elmnt.id;
+	let pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+	if (document.getElementById(elmnt.id + "header")) {
+	/* if present, the header is where you move the DIV from:*/
+	document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+	} else {
+	/* otherwise, move the DIV from anywhere inside the DIV:*/
+	elmnt.onmousedown = dragMouseDown;
+	}
+
+	function dragMouseDown(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// get the mouse cursor position at startup:
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		document.onmouseup = closeDragElement;
+		// call a function whenever the cursor moves:
+		document.onmousemove = elementDrag;
+	}
+
+	function elementDrag(e) {
+		e = e || window.event;
+		e.preventDefault();
+		// calculate the new cursor position:
+		pos1 = pos3 - e.clientX;
+		pos2 = pos4 - e.clientY;
+		pos3 = e.clientX;
+		pos4 = e.clientY;
+		// set the element's new position:
+		elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+		elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+		allNotes[moveId].y = (elmnt.offsetTop - pos2);
+		allNotes[moveId].x = (elmnt.offsetLeft - pos1);
+	}
+
+	function closeDragElement() {
+		/* stop moving when mouse button is released:*/
+		document.onmouseup = null;
+		document.onmousemove = null;
+	}
+}
+
+function touch() {
+	let n = document.querySelector(":hover");
+	let n2;
+	while(n) {
+		n2 = n;
+		n = n2.querySelector(":hover");
+	}
+	return n2;
+}
+
+
+
+function read_cookie(name) {
+ var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+ result && (result = JSON.parse(result[1]));
+ return result;
+}
+
+</script>
+</body>
+</html>
