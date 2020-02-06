@@ -86,7 +86,7 @@ debugger;
 let allNotes = [];
 try {
 	let cookieValue = read_cookie('note');
-	if(cookieValue != '' || cookieValue != undefined){
+	if(cookieValue != '' || cookieValue != null){
 		allNotes = cookieValue;
 		console.log(cookieValue);
 	}
