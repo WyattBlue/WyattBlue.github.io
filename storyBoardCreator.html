@@ -74,7 +74,6 @@
 </style>
 </head>
 <body>
-<h1 id="debug">uh oh</h1>
 
 <ul id='custom-menu'>
   <li>Create New</li>
@@ -85,8 +84,9 @@
 <script>
 let allNotes;
 try {
-	if(read_cookie('note') == ''){
+	if(read_cookie('note') != ''){
 		allNotes = read_cookie('note');
+		console.log(read_cookie('note'));
 	}
 	else {
 		allNotes = [];
@@ -140,7 +140,6 @@ function note(t,b,x,y){
 	bake_cookie('note',allNotes);
 	function bake_cookie(name, value) {
 let print = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
-	console.log(print);
 	document.cookie = print;
 }
 
@@ -182,7 +181,7 @@ onmousedown = function(e){
 		}
 		if(block == 'LI') {
 			if(value == 'Create New'){
-				allNotes.push(new note('title','about',e.clientX,e.clinetY));
+				allNotes.push(new note('title','about',e.clientX,e.clientY));
 			}
 		}
 		menu = 0;
