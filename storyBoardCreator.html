@@ -77,7 +77,7 @@
 
 <ul id='custom-menu'>
   <li>Create New</li>
-  <li>Edit Selected</li>
+  <li>Load</li>
   <li>Delete Selected</li>
 </ul>
 
@@ -182,6 +182,9 @@ onmousedown = function(e){
 		if(block == 'LI') {
 			if(value == 'Create New'){
 				allNotes.push(new note('title','about',e.clientX,e.clientY));
+			}
+			if(value == 'Load'){
+				allNotes = prompt('load data');
 			}
 		}
 		menu = 0;
