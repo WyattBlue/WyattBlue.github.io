@@ -83,6 +83,7 @@
 </ul>
 
 <script>
+let allNotes;
 try {
 	if(read_cookie('note') == ''){
 		allNotes = read_cookie('note');
@@ -111,13 +112,6 @@ function note(t,b,x,y){
 	this.x = x;
 	this.y = y;
 }
-let allNotes;
-if(document.cookie ==''){
-	allNotes = [];
-} else {
-	allNotes = read_cookie('note');
-}
-
 
 !function main(){
 	if(dragging == 0){
