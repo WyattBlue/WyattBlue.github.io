@@ -44,8 +44,6 @@
 	ul {
 		position:absolute;
 		font-family:sans-serif;
-		font-size:22px;
-		font-weight:bold;
 		color:#444;
 		list-style:none;
 		background-color:white;
@@ -54,10 +52,13 @@
 		display: none;
 		white-space: nowrap;
 		padding:0;
+		z-index:1000;
 	}
 	#custom-menu li {
 		padding: 8px 12px;
 		cursor: pointer;
+		font-size:22px;
+		font-weight:bold;
 	}	
 
 	#custom-menu li:hover {
@@ -77,8 +78,9 @@
 
 <ul id='custom-menu'>
   <li>Create New</li>
+	<li>Save</li>
   <li>Load</li>
-  <li>Delete Selected</li>
+  <li>Delete All</li>
 </ul>
 
 <script>
@@ -181,9 +183,8 @@ onmousedown = function(e){
 				allNotes.push(new note('title','about',e.clientX,e.clientY));
 			}
 			if(value == 'Load'){
-				//bake_cookie('note',prompt('load data'));
 				rawData = prompt('load data');
-				eval('allNotes = '+rawData+';');
+				allNotes = JSON.parse(rawData);
 			}
 		}
 		menu = 0;
