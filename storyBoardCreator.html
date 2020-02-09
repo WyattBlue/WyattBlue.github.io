@@ -101,6 +101,8 @@ catch(e){
 }
 let x;
 let y;
+let sx;
+let sy;
 let rightClick = 0;
 let leftClick = 0;
 let menu = 0;
@@ -130,6 +132,8 @@ function note(t,b,x,y){
 			htmlDiv.style.top = (allNotes[i].y-offY/2)+'px';
 			dragElement(htmlDiv);
 		}
+		window.scrollBy(sx,sy);
+		dragging = 2;
 	} else {
 		for(let i = 0;i< allNotes.length;i++){
 			try {
@@ -206,6 +210,11 @@ onmouseup = function(e){
 	catch(e){dragging = 0;}
 }
 
+onscroll = function(e){
+	sy = this.scrollY;
+	sx = this.scrollX;
+}
+
 function clear(tag){
 	let spans = tag;
 	let len = spans.length;
@@ -268,7 +277,7 @@ function touch() {
 }
 
 function read_cookie(name) {
-	var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+	let result = document.cookie.match(new RegExp(name + '=([^;]+)'));
 	result && (result = JSON.parse(result[1]));
 	return result;
 }
