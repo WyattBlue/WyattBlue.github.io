@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>Bubbles</title>
-	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height>
 	<meta name='apple-mobile-web-app-capable' content='yes' />
 	<style>
 		body {
@@ -23,10 +23,6 @@
 <body>
 
 <script>
-for(let i=0;i<7;i++){
-	let p=document.createElement('p');
-	document.body.appendChild(p);
-}
 
 let n=0;
 let cn=[];
@@ -46,13 +42,6 @@ let h;
 	w = window.innerWidth;
 	h = window.innerHeight;
 	n++;
-	document.getElementsByTagName('p')[0].innerHTML="Click Around!";
-	document.getElementsByTagName('p')[1].innerHTML="mouse x "+x;
-	document.getElementsByTagName('p')[2].innerHTML="mouse y "+y;
-	document.getElementsByTagName('p')[3].innerHTML="mouse down: "+mouseDown;
-	document.getElementsByTagName('p')[4].innerHTML="touch x "+tx;
-	document.getElementsByTagName('p')[5].innerHTML="touch y "+ty;
-	document.getElementsByTagName('p')[6].innerHTML="touch down: "+touchDown;
 
 	let list = document.getElementsByTagName("span");
 	for (let k = list.length - 1; k >= 0; k--) {
