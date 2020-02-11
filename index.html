@@ -2,30 +2,94 @@
 <html lang="en">
 <title>WyattBlue's Projects</title>
 <head>
-  <style>
-    body {font-family:sans-serif;}
-    h1 {
-     text-align:center; 
-    }
-    iframe {
-	width: 500px;
-	height: 500px;
-	overflow: hidden;
-	border: 0px;
-    }
-	h2 {
-		position:relative;
-		text-align:center;
-	}
-  </style>
+	<style>
+		body {
+			font-family:sans-serif;
+			background-color:#ddd;
+		}
+		h1 {
+			text-align:center; 
+		}
+		iframe {
+			width: 500px;
+			height: 500px;
+			border: 0px;
+			cursor:pointer;
+		}
+		.c {
+			overflow: hidden;
+			cursor: pointer;
+			width:500px;
+			height:500px;
+			margin:0px;
+		}
+		h2 {
+			position:absolute;
+			margin:auto;
+			padding-top:230px;
+			height:270px;
+			width:500px;
+			color:black;
+			text-decoration:none;
+			text-align:center;
+			background-color: rgb(255,255,255,0.5);
+
+			font-family: verdana;
+			font-size: 35px;
+		}
+
+		.grid-container {
+			display: grid;
+			grid-template-columns: auto auto;
+			padding:10px;
+
+
+		}
+		.grid-item {
+			padding:5px;
+			padding-bottom:15%;
+			text-align:center;
+			margin: 0 auto;
+		}
+	</style>
 <body>
-<h1>WyattBlue's Projects</h1>
-<a href="/pong" target="_blank">JS Pong</a>
-<a href="/webEditor" target="_blank">JS Web Editor</a>
-<a href="/bubble" target="_blank">Bubbles</a>
-<a href="/storyBoardCreator" target="_blank">
-	<h2>Story Board Creator</h2>
-	<iframe scrolling="no" src="https://wyattblue.github.io/storyBoardCreator"></iframe>
-</a>
+	<h1>WyattBlue's Projects</h1>
+	<div class="grid-container">
+	<div class="grid-item">
+	<a href="/pong" target="_blank">
+		<div class="c">
+		<h2>JS Pong</h2>
+		<iframe sandbox="allow-scripts" scrolling="no" src="https://wyattblue.github.io/pong"></iframe>
+		</div>
+	</a>
+	</div>
+	<div class="grid-item">
+	<a href="/webEditor" target="_blank">
+		<div class="c">
+		<h2>JS Web Editor</h2>
+		<iframe sandbox="allow-scripts" scrolling="no" src="https://wyattblue.github.io/webEditor"></iframe>
+		</div>
+	</a>
+	</div>
+	<div class="grid-item">
+	<a href="/bubble" target="_blank">
+		<div class="c">
+		<h2>Bubbles</h2>
+		<iframe sandbox="allow-scripts" scorlling="no" src="https://wyattblue.github.io/bubble"></iframe>
+		</div>
+	</a>
+	</div>
+	<div class="grid-item">
+	<a href="/storyBoardCreator" target="_blank">
+		<div class="c">
+		<h2>Story Board Creator</h2>
+		<iframe sandbox="allow-scripts" scrolling="no" src="https://wyattblue.github.io/storyBoardCreator"></iframe>
+		</div>
+	</a>
+	</div>
+
+	<script>
+
+	</script>
 </body>
 </html>
