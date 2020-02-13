@@ -60,6 +60,18 @@ let rightArrow=leftArrow=space=0; //input booleans
 let c; //centers screen
 let z='px'; //shorthand for pixels
 start(); //defines variables
+	
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
+if(inIframe()){
+	document.body.style.background='blue';	
+}
+
 
 //Run Game Code
 main();
