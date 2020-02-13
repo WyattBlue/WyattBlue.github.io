@@ -37,11 +37,25 @@ let ty=0;
 let hold=0;
 let w;
 let h;
+	
+function inIframe () {
+    try {
+        return window.self !== window.top;
+    } catch (e) {
+        return true;
+    }
+}
 
 !function main(){
 	w = window.innerWidth;
 	h = window.innerHeight;
 	n++;
+	
+	if(inIframe()){
+		cn.push(n);
+		cx.push(Math.floor(Math.random() * 500) + 1 );
+		cy.push(Math.floor(Math.random() * 500) + 1 );
+	}
 
 	let list = document.getElementsByTagName("span");
 	for (let k = list.length - 1; k >= 0; k--) {
