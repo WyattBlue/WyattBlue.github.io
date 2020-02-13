@@ -51,7 +51,7 @@ function inIframe () {
 	h = window.innerHeight;
 	n++;
 	
-	if(inIframe()){
+	if(inIframe() && n%3 === 0){
 		cn.push(n);
 		cx.push(Math.floor(Math.random() * 500) + 1 );
 		cy.push(Math.floor(Math.random() * 500) + 1 );
@@ -89,7 +89,7 @@ function inIframe () {
 		}	
 	}
 
-	if((mouseDown || touchDown)&&hold==0){
+	if((mouseDown || touchDown) && hold === 0){
 		cn.push(n);
 		cx.push(x);
 		cy.push(y);
