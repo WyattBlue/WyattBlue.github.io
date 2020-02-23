@@ -3,38 +3,58 @@
 <head>
 	<title>JS Pong</title>
 	<style>
-		div{position:absolute;height:30px;background:#DDD;}
-		#spacer{
-		width:98%;
-		background:0;
-		margin-top:500px;
-		text-align:center;}
-		#tail{
-			position:fixed;
-			width:100%;
-			background:0;
-			margin-top:1000px;
+		body {
+			font-family:verdana;
+			margin: 8px;
 		}
-		body{font-family:verdana}
-		#g{
+		div {
+			position:absolute;
+			height:30px;
+			background:#DDD;
+		}
+		#g {
 			height:500px;
 			width:500px;
 			margin-bottom:20px;
-			background:#000;}
-
-		#p{width:100px;margin-top:440px}
-		#b{width:30px}
-		#t{color:#DDD;font-size:35px}
-		#i{
+			background:black;
+		}
+		#p {
+			width:100px;
+			margin-top:440px;
+		}
+		#b {
+			width:30px;
+		}
+		#t {
+			color:#DDD;
+			font-size:35px;
+		}
+		#i {
 			margin-top:120px;
-			background:0;
 			width:500px;
 			text-align:center;
 		}
-		h2{font-size:20px;line-height:1em;margin-left:2%;}
-		f{color:red}
-		g{color:#090}
-		j{color:#909}
+		#text {
+			width:98%;
+			margin-top:500px;
+			text-align:center;
+			/* transparent background color */
+			background:0;
+		}
+		h2 {
+			font-size:20px;
+			line-height:1em;
+			margin-left:2%;
+		}
+		.green {
+			color:#090;
+		}
+		.red {
+			color:red;
+		}
+		.purple {
+			color:#909;
+		}
 	</style>
 </head>
 <body>
@@ -43,129 +63,165 @@
 <div id="b"></div>
 <div id="p"></div>
 <div id="i">
-   	<p id="t"></p>
-    <button onclick="start()">Restart Game</button>
+	<p id="t"></p>
+	<button onclick="start()">Restart Game</button>
 </div>
-<div id="spacer">
-<h2>Use <g>Arrow Keys</g> to Move.</h2>
-<h2>Avoid Ball When <f>Red</f>.</h2>
-<h2>Hold <j>Space</j> for 2x Speed, 2x Points.</h2>
+<div id="text">
+	<h2>Use <span class="green">Arrow Keys</span> to Move.</h2>
+	<h2>Avoid Ball When <span class="red">Red</span>.</h2>
+	<h2>Hold <span class="purple">Space</span> for 2x Speed, 2x Points.</h2>
+</div>
 <script>
+
 let p=document.getElementById('p'); //paddle
 let b=document.getElementById('b'); //ball
 let g=document.getElementById('g'); //game background
 let t=document.getElementById('t'); //text
 let i=document.getElementById('i'); //restart button
-let rightArrow=leftArrow=space=0; //input booleans
+let rightArrow=leftArrow=space=0; //input variables
 let c; //centers screen
-let z='px'; //shorthand for pixels
 start(); //defines variables
-	
-function inIframe () {
-    try {
-        return window.self !== window.top;
-    } catch (e) {
-        return true;
-    }
-}
-if(inIframe()){
-	document.body.style.background='blue';	
-}
-
-
-//Run Game Code
-main();
-function main() {
-	if(!gameEnd){
-      tick++;
-      if(tick % 30==0 && tick>=0){
-          xacel+=xacel>0?0.1:-0.1;
-          yacel+=yacel>0?0.1:-0.1;
-      }
-
-      pX+=7*(rightArrow-leftArrow);
-
-      ballX+=xacel;
-      ballY+=yacel;
-
-      if(pX>400)pX=400;
-      if(pX<0)pX=0;
-      if(yacel>19)yacel=19;
-
-      if(ballY>410 && ballY<430) { //paddle physics
-          if(ballX>=pX-30 && ballX<=pX+100){
-              y();
-              ballY=410;
-              if(leftArrow)xacel-=1; //paddle influence
-              if(rightArrow)xacel+=1;
-              if(ballState)gameEnd=1;
-              else{hit+=space?2:1;}
-          }
-      }
-      function y(){
-          yacel=-yacel;
-          xacel+=(Math.random()<0.5)?-0.2:0.2;
-      }
-
-      function x(){
-          xacel=-xacel;
-          yacel+=(Math.random()<0.5)?-0.2:0.2;
-      }
-      if(ballY<0){ //ceiling
-
-          if(ballState==0 && tick>50*7){ballState=1;tick=0;}
-          else if(tick>50*5 && ballState==1){ballState=0;tick=0;}
-          ballY=0;y()}
-      if(ballY>470){ //floor
-          if(ballState==0){gameEnd=1;}
-          ballY=470;y()
-      }
-      if(ballX<0){ballX=0;x()}
-      if(ballX>470){ballX=470;x()}
-    }
-    c=window.innerWidth/2-250;
-    p.style.left=pX+c+z;
-    b.style.left=Math.ceil(ballX)+c+z;
-    b.style.marginTop=Math.ceil(ballY)+z;    
-    g.style.left=c+z;
-    i.style.marginLeft=c+z;
-    if(ballState){b.style.background="red";}
-    else{b.style.background="#DDD";}
-    
-    if(gameEnd){
-    	t.innerHTML="You Got "+hit+" Hits!";
-        i.style.display="block";
-        g.style.cursor="";
-        b.style.cursor="";
-        p.style.cursor="";
-        
-    }
-    else {
-        i.style.display="none";
-        g.style.cursor="none";
-        b.style.cursor="none";
-        p.style.cursor="none";
-    }
-
-    window.onkeyup=function(e){
-		if(e.which==39)rightArrow=0;
-		if(e.which==37)leftArrow=0
-		if(e.which==32)space=0;}
-	window.onkeydown=function(e){
-		if(e.which==39)rightArrow=1;
-		if(e.which==37)leftArrow=1;
-		if(e.which==32)space=1;}
-    
-   	setTimeout(main,space?10:20);
-}  
 
 function start() {
-	ballState=hit=gameEnd=xacel=0;
-	ballX=240;
-	ballY=170;
-	yacel=3;
-	tick=-300;
-	pX=208;
+	hit=xacel=0;
+	ballState = 'normal';
+	gameEnd = false;
+	ballX = 240;
+	ballY = 170;
+	yacel = 3;
+	tick = -300;
+	pX = 208;
+}
+	
+if(inIframe() === true) {
+	document.body.style.margin = '0px';
+}
+
+!function main() {
+	if(gameEnd === false){
+		tick++;
+		if(tick%30 === 0 && tick >= 0){
+			xacel+=xacel>0?0.1:-0.1;
+			yacel+=yacel>0?0.1:-0.1;
+		}
+
+		//paddle control using arrows
+		pX += 7*(rightArrow-leftArrow);
+
+		ballX += xacel;
+		ballY += yacel;
+
+		if(pX>400)pX = 400;
+		if(pX<0)pX = 0;
+		if(yacel>19)yacel = 19;
+
+		//paddle physics
+		if(ballY>410 && ballY<430){
+			if(ballX>=pX-30 && ballX<=pX+100){
+				y();
+				ballY=410;
+				//paddle influence
+				if(leftArrow)xacel--;
+				if(rightArrow)xacel++;
+				if(ballState === 'red') {
+					gameEnd = true;
+				} else {
+					hit += space?2:1;
+				}
+			}
+		}
+		//reverse y direction
+		function y(){
+			yacel = -yacel;
+			xacel += (Math.random()<0.5)?-0.2:0.2;
+		}
+		//reverse x direction
+		function x(){
+			xacel = -xacel;
+			yacel += (Math.random()<0.5)?-0.2:0.2;
+		}
+		//ceiling collision
+		if(ballY<0){
+			if(ballState === 'normal' && tick>50*7){
+				ballState = 'red';
+				tick = 0;
+			}
+			if(tick>50*5 && ballState === 'red'){
+				ballState = 'normal';
+				tick = 0;
+			}
+			ballY = 0;
+			y();
+		}
+		//floor collision
+		if(ballY > 470){
+			if(ballState === 'normal')gameEnd = true;
+			ballY=470;
+			y();
+		}
+		if(ballX < 0){
+			ballX = 0;
+			x();
+		}
+		if(ballX > 470){
+			ballX = 470;
+			x();
+		} 
+	}
+	c = window.innerWidth/2-250;
+	p.style.left = pX+c+'px';
+	b.style.left = Math.ceil(ballX)+c+'px';
+	b.style.marginTop = Math.ceil(ballY)+'px'; 
+	g.style.left = c+'px';
+	i.style.marginLeft = c+'px';
+
+	if(ballState === 'red'){
+		b.style.background = 'red';
+	} else {
+		b.style.background = '#DDD';
+	}
+
+	if(gameEnd === true){
+		t.innerHTML = 'You Got '+hit+' Hits!';
+		if(inIframe() === false){
+			i.style.display = 'block';
+		} else {
+			tick++;
+			if(tick>20){
+				start();
+			}
+		}
+		g.style.cursor = '';
+		b.style.cursor = '';
+		p.style.cursor = '';
+		
+	} else {
+		i.style.display='none';
+		g.style.cursor='none';
+		b.style.cursor='none';
+		p.style.cursor='none';
+	}
+
+	window.onkeyup = function(e){
+		if(e.which === 39)rightArrow = 0;
+		if(e.which === 37)leftArrow = 0
+		if(e.which === 32)space = 0;
+	}
+	window.onkeydown = function(e){
+		if(e.which === 39)rightArrow = 1;
+		if(e.which === 37)leftArrow = 1;
+		if(e.which === 32)space = 1;
+	}
+	setTimeout(main,space?10:20);
+}();
+
+function inIframe(){
+	return true;
+	try {
+		return window.self !== window.top;
+	} catch (e) {
+		return true;
+	}
 }
 
 </script>
