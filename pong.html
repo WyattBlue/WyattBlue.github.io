@@ -67,9 +67,7 @@
 <div id="b"></div>
 <div id="p"></div>
 	<p id="t"></p>
-	<p style="text-align:center;">
 	<button id="i" onclick="start()">Restart Game</button>
-	</p>
 </div>
 <div id="text">
 	<h2>Use <span class="green">Arrow Keys</span> to Move.</h2>
@@ -178,8 +176,8 @@ if(inIframe() === true) {
 	b.style.left = Math.ceil(ballX)+c+'px';
 	b.style.marginTop = Math.ceil(ballY)+'px'; 
 	g.style.left = c+'px';
-	i.style.marginLeft = c-9+'px';
-	t.style.marginLeft = c-9+'px';
+	i.style.marginLeft = window.innerWidth/2 -(i.offsetWidth/2)+'px';
+	t.style.marginLeft = c-8+'px';
 
 	if(ballState === 'red'){
 		b.style.background = 'red';
