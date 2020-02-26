@@ -62,9 +62,8 @@
 <div id="g"></div>
 <div id="b"></div>
 <div id="p"></div>
-<div id="i">
 	<p id="t"></p>
-	<button onclick="start()">Restart Game</button>
+	<button id="i" onclick="start()">Restart Game</button>
 </div>
 <div id="text">
 	<h2>Use <span class="green">Arrow Keys</span> to Move.</h2>
@@ -184,17 +183,19 @@ if(inIframe() === true) {
 	if(gameEnd === true){
 		t.innerHTML = 'You Got '+hit+' Hits!';
 		if(inIframe() === false){
-			t.style.display = 'block';
+			i.style.display = 'block';
 		} else {
 			tick++;
 			gameEnd = 240;
-			t.style.display = 'block';
+			i.style.display = 'none';
 		}
+		t.style.display='block';
 		g.style.cursor = '';
 		b.style.cursor = '';
 		p.style.cursor = '';
 		
 	} else if(gameEnd === false){
+		t.style.display='none';
 		i.style.display='none';
 		g.style.cursor='none';
 		b.style.cursor='none';
