@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>JS Pong</title>
+	<title>Pong 0.8</title>
 	<style>
 		body {
 			font-family:verdana;
@@ -187,7 +187,7 @@ if(inIframe() === true) {
 			i.style.display = 'block';
 		} else {
 			tick++;
-			if(tick>20){
+			gameEnd = 1000;
 				start();
 			}
 		}
@@ -200,6 +200,13 @@ if(inIframe() === true) {
 		g.style.cursor='none';
 		b.style.cursor='none';
 		p.style.cursor='none';
+	}
+	
+	if(gameEnd !== true && gameEnd !== false){
+		gameEnd--;
+		if(gameEnd === 0){
+			start();
+		}
 	}
 
 	window.onkeyup = function(e){
