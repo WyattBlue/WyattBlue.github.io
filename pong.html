@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Pong 1.6</title>
+	<title>Pong 1.7</title>
 	<style>
 		body {
 			font-family:verdana;
@@ -36,7 +36,7 @@
 		}
 		#i, #t {
 			position:absolute;
-
+			width:500px;
 			text-align:center;
 		}
 		#text {
@@ -178,6 +178,7 @@ if(inIframe() === true) {
 	b.style.marginTop = Math.ceil(ballY)+'px'; 
 	g.style.left = c+'px';
 	i.style.marginLeft = c+'px';
+	t.style.marginLeft = c+'px';
 
 	if(ballState === 'red'){
 		b.style.background = 'red';
