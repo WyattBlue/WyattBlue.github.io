@@ -184,11 +184,11 @@ if(inIframe() === true) {
 	if(gameEnd === true){
 		t.innerHTML = 'You Got '+hit+' Hits!';
 		if(inIframe() === false){
-			i.style.display = 'block';
+			t.style.display = 'block';
 		} else {
 			tick++;
 			gameEnd = 1000;
-			i.style.display = 'block';
+			t.style.display = 'block';
 		}
 		g.style.cursor = '';
 		b.style.cursor = '';
