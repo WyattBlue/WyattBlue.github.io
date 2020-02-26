@@ -65,9 +65,9 @@
 
 <div id="g"></div>
 <div id="b"></div>
-<div id="p"></div>
-	<p id="t"></p>
-	<button id="i" onclick="start()">Restart Game</button>
+<div id="i">
+	<p id="t">You Got 0 Hits!</p>
+	<button onclick="start()">Restart Game</button>
 </div>
 <div id="text">
 	<h2>Use <span class="green">Arrow Keys</span> to Move.</h2>
@@ -98,6 +98,7 @@ function start() {
 	
 if(inIframe() === true) {
 	document.body.style.margin = '0px';
+	document.getElementsByTagName('button')[0].outerHTML = '';
 }
 
 !function main() {
@@ -176,8 +177,7 @@ if(inIframe() === true) {
 	b.style.left = Math.ceil(ballX)+c+'px';
 	b.style.marginTop = Math.ceil(ballY)+'px'; 
 	g.style.left = c+'px';
-	i.style.marginLeft = window.innerWidth/2 -(i.offsetWidth/2)+'px';
-	t.style.marginLeft = c+'px';
+	i.style.marginLeft = c+'px';
 
 	if(ballState === 'red'){
 		b.style.background = 'red';
@@ -187,17 +187,15 @@ if(inIframe() === true) {
 
 	if(gameEnd === true){
 		t.innerHTML = 'You Got '+hit+' Hits!';
-		if(inIframe() === false){
-			i.style.display = 'block';
-		} else {
-			tick++;
-			gameEnd = 240;
-			i.style.display = 'none';
-		}
-		t.style.display='block';
+		i.style.display='block';
 		g.style.cursor = '';
 		b.style.cursor = '';
 		p.style.cursor = '';
+		
+		if(inIframe() === true){
+			tick++;
+			gameEnd = 240;
+		}
 		
 	} else if(gameEnd === false){
 		t.style.display='none';
