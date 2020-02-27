@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<title>Pong 2</title>
+	<title>JS Pong</title>
 	<style>
 		body {
 			font-family:verdana;
@@ -184,7 +184,11 @@ if(inIframe() === true) {
 	}
 
 	if(gameEnd === true){
-		t.innerHTML = 'You Got '+hit+' Hits!';
+		if(hit === 1){
+			t.innerHTML = 'You Got 1 Hit!';
+		} else {
+			t.innerHTML = 'You Got '+hit+' Hits!';
+		}
 		t.style.display='block';
 		i.style.display='block';
 		g.style.cursor = '';
