@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+<head>
+	<style>
+		div {
+			border: 1px solid black;
+			border-radius: 20px;
+			position:absolute;
+		}
+		h1 {
+			font-family:Digital-7 Mono;
+			position:relative;
+			text-align:center;
+			margin-top:25%;
+			padding:0px;
+		}
+		#time {
+			color:red;
+			letter-spacing:6px;
+			font-size:50px;
+		}
+	</style>
+</head>
+<body>
+<div id="back">
+<h1 id="time"></h1>
+</div>
+<script>
+// 9 by 7.5
+
+let scale = 70;
+
+let back = document.getElementById('back');
+
+back.style.width = scale * 9 + 'px';
+back.style.height = scale * 7.5 + 'px';
+
+
+//width 630px;
+//height
+
+
+!function main(){
+	clear();
+
+	createPill(200,200,20,5,'#000',50);
+
+	let d = new Date;
+	let hours = d.getHours();
+	let min = d.getMinutes();
+	let ampm = hours >= 12 ? 'pm' : 'am';
+	hours = hours % 12;
+	hours = hours ? hours : 12;
+	
+	indi(400,168, ampm == 'am', '#6D5');
+	indi(400,189, ampm == 'pm', '#6D5');
+	createText('AM',415,161,16,'sans-serif');
+	createText('PM',415,182,16,'sans-serif');
+	knob(550,450,'Heat Sys Sensor',0);
+	knob(550,200,'Night Thermostat',0);
+	knob(315,70,'Heat Adjust',0);
+	knob(80, 200,'Day Thermostat',0);
+	 
+	min = min<10?'0'+min:min;
+
+	let time = hours + ':' + min;
+	for(let i=0;i<=5-time.length;i++){
+		time = "0"+time;
+	}
+
+	document.getElementById('time').innerText = time;
+
+	setTimeout(main,50);
+}();
+
+function indi(x,y, on_off, color){
+	createCircle(x,y,15,'0','1px solid black');
+	if(on_off){
+		createCircle(x,y,7,color,'1px solid black');
+	} else {
+		createCircle(x,y,7,'#FFF','1px solid black');
+	}
+}
+
+function knob(x,y,text,pos){
+	createCircle(x,y,40,'#AAA','1px solid black');
+	createCircle(x,y,90,'0','1px dotted black');
+	createText(text,x-30,y+50,10,'sans-serif');
+}
+
+function createCircle(x,y,radius,color,border){
+	let s = document.createElement('span');
+	s.style.position = 'absolute';
+	s.style.marginLeft = x-(radius/2)+'px';
+	s.style.marginTop = y-(radius/2)+'px';
+	s.style.width = radius+'px';
+	s.style.height = radius+'px';
+	s.style.border = border;
+	s.style.backgroundColor = color;
+	s.style.borderRadius = '50%';
+	document.body.appendChild(s);
+}
+
+function createText(text,x,y,size,font){
+	let p = document.createElement('span');
+	p.innerText = text;
+	p.style.position = 'absolute';
+	p.style.marginLeft = x + 'px';
+	p.style.marginTop = y + 'px';
+	p.style.fontSize = size + 'px';
+	p.style.fontFamily = font;
+	document.body.appendChild(p);
+}
+
+function createPill(x,y,wid,hgt,color,rot){
+	let p = document.createElement('span');
+	p.style.position = 'absolute';
+	p.style.marginLeft = x + 'px';
+	p.style.marginTop = y + 'px';
+	p.style.backgroundColor = color;
+	p.style.width = wid + 'px';
+	p.style.height = hgt + 'px';
+	p.style.borderRadius = '30px';
+	p.style.transform = 'rotate('+rot+'deg); translate(-50px, 0px);';
+	document.body.appendChild(p);
+}
+
+function clear(){
+	let spans = document.getElementsByTagName('span');
+	let len = spans.length;
+	for(let i=len-1; i>=0; i--){
+		let item = spans[i];
+		item.parentNode.removeChild(item);
+	}	
+}
+
+
+</script>
+
+</body>
+</html>
