@@ -12,5 +12,3 @@ for(let i=len-1; i>=0; i--){
 	let item = spans[i];
 	item.href+= "?from=Main."+grab;
 }	
-
-catch(e){}
