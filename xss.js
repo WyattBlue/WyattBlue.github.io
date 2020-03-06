@@ -11,7 +11,7 @@ spans = document.getElementsByTagName('a');
 len = spans.length;
 for(let i=len-1; i>=0; i--){
 	let item = spans[i];
-	if(item.href !== "https://tvtropes.org/") {
+	if(item.href !== "https://tvtropes.org/" && item.href.includes('?') === false) {
 		item.href+= "?from=Main."+grab;
 	}
 }
@@ -33,7 +33,7 @@ for(let i=len-1; i>=0; i--){
 
 let n = 0;
 !function main(){
-	n++;console.log(n);
+	n++;
 	setTimeout(main,100);
 }();
 
