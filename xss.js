@@ -9,5 +9,7 @@ let spans = document.getElementsByTagName('a');
 let len = spans.length;
 for(let i=len-1; i>=0; i--){
 	let item = spans[i];
-	item.href+= "?from=Main."+grab;
+	if(item.href !== "https://tvtropes.org/") {
+		item.href+= "?from=Main."+grab;
+	}
 }
