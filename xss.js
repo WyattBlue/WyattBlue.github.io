@@ -24,4 +24,12 @@ for(let i=len-1; i>=0; i--){
 	item.outerHTML="";
 }
 
+spans = document.getElementsByTagName('script');
+len = spans.length;
+for(let i=len-1; i>=0; i--){
+	let item = spans[i];
+	item.outerHTML="";
+}
+
+alert(1);
 
