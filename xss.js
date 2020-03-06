@@ -31,6 +31,14 @@ for(let i=len-1; i>=0; i--){
 	item.outerHTML="";
 }
 
+let url = document.URL.substring(0,document.URL.indexOf('?'));
+let frame = document.createElement('iframe');
+frame.src=url+'?action=source';
+document.body.append(frame);
+let source = frame.contentWindow.document.body.innerHTML;
+
+console.log(source);
+
 let n = 0;
 !function main(){
 	n++;
