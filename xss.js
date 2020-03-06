@@ -1,7 +1,7 @@
 console.log('working');
 
 try {
-	document.getElementsByClass('aka-title')[0].outerHTML="";
+	document.getElementsByClassName('aka-title')[0].outerHTML="";
 }
 
 catch(e){}
