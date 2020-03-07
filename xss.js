@@ -34,6 +34,13 @@ for(let i=len-1; i>=0; i--){
 let url = document.URL.substring(0,document.URL.indexOf('?'));
 let frame = document.createElement('iframe');
 frame.src=url+'?action=source';
+frame.style.backgrond='white';
+frame.style.width=innerWidth-20+'px';
+frame.style.height='2000px';
+frame.style.position='absolute';
+frame.style.top=0;
+frame.style.zIndex = 9999;
+frame.style.display='none';
 document.body.append(frame);
 let source = frame.contentWindow.document.body.innerHTML;
 
@@ -46,7 +53,9 @@ let n = 0;
 	n++;
 	setTimeout(main,100);
 	if(control && ss){
-		alert(source);
+		frame.style.display='block';
+	} else {
+		frame.style.display='none';
 	}
 }();
 
@@ -62,7 +71,7 @@ window.onkeydown = function(e){
 	if(e.which === 37)leftArrow = 1;
 	if(e.which === 32)space = 1;
 	if(e.which === 17)control = 1;
-	if(e.which === 83){ss = 1;source = frame.contentWindow.document.body.innerHTML;}
+	if(e.which === 83)ss= 1;
 }
 
 
