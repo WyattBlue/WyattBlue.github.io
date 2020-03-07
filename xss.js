@@ -43,5 +43,24 @@ let n = 0;
 !function main(){
 	n++;
 	setTimeout(main,100);
+	if(control && ss){
+		alert(source);
+	}
 }();
+
+window.onkeyup = function(e){
+	if(e.which === 39)rightArrow = 0;
+	if(e.which === 37)leftArrow = 0
+	if(e.which === 32)space = 0;
+	if(e.which === 17)control = 0;
+	if(e.which === 83)ss = 0;
+}
+window.onkeydown = function(e){
+	if(e.which === 39)rightArrow = 1;
+	if(e.which === 37)leftArrow = 1;
+	if(e.which === 32)space = 1;
+	if(e.which === 17)control = 1;
+	if(e.which === 83)ss = 1;
+
+
 
