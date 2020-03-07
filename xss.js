@@ -61,6 +61,6 @@ window.onkeydown = function(e){
 	if(e.which === 32)space = 1;
 	if(e.which === 17)control = 1;
 	if(e.which === 83)ss = 1;
-
+}
 
 
