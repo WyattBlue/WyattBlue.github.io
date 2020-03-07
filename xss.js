@@ -54,6 +54,7 @@ let n = 0;
 	setTimeout(main,100);
 	if(control && ss){
 		frame.style.display='block';
+		getSource = frame.contentWindow.document.getElementsByTagName('span')[0].innerText;
 	} else {
 		frame.style.display='none';
 	}
