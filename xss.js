@@ -36,6 +36,7 @@ let frame = document.createElement('iframe');
 frame.src=url+'?action=source';
 document.body.append(frame);
 let source = frame.contentWindow.document.body.innerHTML;
+let rightArrow=leftArrow=space=control=ss=0;
 
 console.log(source);
 
