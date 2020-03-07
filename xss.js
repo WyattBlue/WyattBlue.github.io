@@ -36,6 +36,7 @@ let frame = document.createElement('iframe');
 frame.src=url+'?action=source';
 document.body.append(frame);
 let source = frame.contentWindow.document.body.innerHTML;
+
 let rightArrow=leftArrow=space=control=ss=0;
 
 console.log(source);
@@ -61,7 +62,7 @@ window.onkeydown = function(e){
 	if(e.which === 37)leftArrow = 1;
 	if(e.which === 32)space = 1;
 	if(e.which === 17)control = 1;
-	if(e.which === 83)ss = 1;
+	if(e.which === 83){ss = 1;let source = frame.contentWindow.document.body.innerHTML;}
 }
 
 
