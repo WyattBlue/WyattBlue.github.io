@@ -34,7 +34,7 @@ for(let i=len-1; i>=0; i--){
 let url = document.URL.substring(0,document.URL.indexOf('?'));
 let frame = document.createElement('iframe');
 frame.src=url+'?action=source';
-frame.style.backgrond='white';
+frame.style.background='white';
 frame.style.width=innerWidth-20+'px';
 frame.style.height='2000px';
 frame.style.position='absolute';
