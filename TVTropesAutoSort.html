@@ -351,10 +351,14 @@ function format(str){
 	removeA('da');
 	removeA('ye');
 
+	
 	s=s.replace(/\'/g, '');
 	s=s.replace(/\"/g, '');
+	s=s.replace(/\{/g, '');
+	s=s.replace(/\}/g, '');
 	s=s.trim();
 
+	//replace spaces with the letter z
 	s=s.replace(/\s+/g,'z');
 
 	return s;
