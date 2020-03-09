@@ -1,0 +1,405 @@
+<html>
+<head>
+	<title>TV Tropes Auto-Sort</title>
+	<style>
+		body{
+			font-size:60px;
+			margin:10px;
+		}
+		textarea {
+			width:80%;
+			height:50%;
+			font-size:10px;
+			font-family:monospace;
+			padding: 0px 20px;
+		}
+		label{font-size:13px;}
+		.textboxs {
+			margin: auto;
+			text-align:center;
+		}
+		img {
+
+			padding-left:30px;
+			padding-right:30px;
+			padding-bottom:10px;
+			margin-bottom:10px;
+			margin-top:5px;
+
+		}
+		h1 {
+			font-family:sans-serif;
+			background-color:#3c4b5e;
+			font-size:40px;
+			color:white;
+			padding: 10px 0px;
+		}
+		h2 {
+			font-family:sans-serif;
+			color:black;
+			font-size:25px;
+			font-weight:normal;
+		}
+		h3 {
+			font-family:sans-serif;
+			color:black;
+			font-size:20px;
+			display:inline-block;
+		}
+		.main {
+			margin:auto;
+			text-align:center;
+			padding:5px;
+		}
+
+		label {
+			font-size:20px;
+			font-family: sans-serif;
+		}
+		.left {
+		    width: 50%;
+		    float: left;
+		    text-align: center;
+		    padding-left:2%;
+		    margin:0;
+		}
+		.right {
+		    width: 40%;
+		    margin:0;
+		    float:left;
+		    text-align:center;
+		    padding-right:2%;
+		}
+		.left h3 {
+			width:80%;
+		}
+
+		a {
+			color:#006bb1;
+			text-decoration: none;
+		}
+
+	</style>
+</head>
+<body>
+
+<div class="textboxs">
+	<h1>TV Tropes Auto-Sort</h1>
+	<h2><a href="https://tvtropes.org/pmwiki/pmwiki.php/Main/AddedAlliterativeAppeal" title="pmwiki/pmwiki.php/Main/AddedAlliterativeAppeal">Automatically Alphabetize Almost Any</a> TVTropes Page</h2>
+</div>
+
+<div>
+	<div class='left'>
+		<h3>Paste Page Source Here</h3>
+	</div>
+	<div class='right'>
+		<h3>Output</h3>
+	</div>
+</div>
+
+<div>
+	<div class='left'>
+		<textarea  id='input'></textarea>
+	</div>
+	<div class='right'>
+		<textarea  id='output'></textarea>
+	</div>
+</div>
+
+<div style="height:60%"></div>
+
+<div class='main'>
+	<input type="checkbox" id="check1">
+	<label for="check1">This page has only examples</label>
+	<input type="checkbox" id="check2">
+	<label for="check2">This page has folder-like sections</label>
+	<br>
+	<button onclick='go()'>Submit</button>
+
+	<button onclick='copyTextToClipboard()'>Copy Result to ClipBoard</button>
+</div>
+
+
+<script>
+
+function go(){
+	let userInput=document.getElementById('input').value;
+
+	let finalOutput='';
+
+	if(document.getElementById('check2').checked === true){
+		//convert sudo-folders to real ones
+		let allLines = userInput.split('\n');
+		let isOpen = false;
+		for(let i=0;i<allLines.length;i++){
+			//~@~
+			if(allLines[i].trim()==='----'){
+				if(isOpen){
+					allLines[i]='[[/folder]]\n[[folder:~@~]]';
+				} else {
+					allLines[i]='[[folder:~@~]]';
+					isOpen = true;
+				}
+			}
+			if(allLines[i].trim().startsWith('!')){
+				allLines[i]='[[/folder]]\n[[folder:@'+allLines[i]+']]';
+			}
+		}
+		userInput = allLines.join('\n');
+	}
+
+
+	if(document.getElementById('check1').checked === false){
+		let allLines = userInput.split('\n');
+		if(allLines[allLines.length-1].trim() !== '----'){
+			allLines.push('----');
+		}
+		let mode='normal';
+		let enter;
+		for(let i=0;i<allLines.length;i++){
+
+			if(allLines[i].trim().startsWith('[[/folder]]')){
+				finalOutput+=sortExamples(enter)+'\n';
+				mode='normal';
+			}
+			if(allLines[i].trim().startsWith('[[folder:')){
+				finalOutput+=allLines[i].trim()+'\n';
+				mode='folder';
+				enter='\n';
+			}
+
+			if(mode === 'folder'){
+				enter+=allLines[i]+'\n';
+			} else {
+				finalOutput+=allLines[i]+'\n';
+			}
+
+		}
+
+		if(finalOutput.endsWith('\n')){
+			finalOutput=finalOutput.substring(0,finalOutput.length-1);
+		}
+
+	} else {
+		finalOutput=sortExamples(userInput);
+	}
+
+	if(document.getElementById('check2').checked === true){
+		//deconvert temporary folders
+		let allLines = finalOutput.split('\n');
+		for(let i=0;i<allLines.length;i++){
+			if(allLines[i].trim()==='[[folder:~@~]]'){
+				allLines[i]='----';
+			}
+			if(allLines[i].trim().startsWith('[[folder:@')){
+				allLines[i]='\n'+allLines[i].substring(10,allLines[i].length-2);
+			}
+			if(allLines[i].trim()==='[[/folder]]'){
+				allLines.splice(i, 1);
+				i--;
+			}
+		}
+		finalOutput = allLines.join('\n');
+	}
+
+	document.getElementById('output').value=finalOutput;
+}
+
+function sortExamples(input){
+	let example = [];
+	lines = input.split('\n');
+	for(let i = 0;i < lines.length;i++){
+		if(isExample(lines[i]) ){
+			let add = lines[i];
+			while(true){
+				i++;
+
+				if( isSub(lines[i]) ){
+					add+='\n'+lines[i];
+				} else {i--;break;}
+			}
+			example.push(add);
+		}
+	}
+
+	example.sort(function(Ori_x,Ori_y) {
+
+		x=format(Ori_x);
+		y=format(Ori_y);
+
+		if (x < y) {
+			return -1;
+		}
+		if (x > y) {
+			return 1;
+		}
+		if( Ori_x < Ori_y){
+			return -1;
+		}
+		if( Ori_x > Ori_y){
+			return 1;
+		}
+		return 0;
+	});
+
+	return example.join('\n\n');;
+}
+
+
+function isExample(text){
+	text=text.trim();
+	return text.startsWith('*') && !text.startsWith("**");
+}
+
+
+function isSub(text){
+	try {
+		text=text.trim();
+	}
+	catch(e){
+		return false;
+	}
+	return text.startsWith('**') || text.startsWith('-->') || text.startsWith('--->') || text.startsWith("'''");
+}
+
+function format(str){
+	s=str.trim();
+	s=s.slice(s.indexOf('*')+1,(s.indexOf('**')==-1?s.length:s.indexOf('**')));
+	s=s.trim();
+
+	//fix [[UsefulNotes/BlockFormat Blockformat]] => Blockformat
+
+	let leftB = [];
+	let rightB = [];
+	let b;
+	let limit = s.length;
+	for(let i=0;i<limit;i++){
+		if(s.substring(i,i+2)=='[['){
+			leftB.push(i);
+		}
+		if(s.substring(i,i+2)==']]'){
+			if(leftB !== []){
+				rightB.push(i);
+			}
+		}
+
+		if(leftB.length !== 0 && rightB.length !== 0) {
+			b = s.substring(leftB[leftB.length-1]+2,rightB[0]);
+			b = b.substring(b.indexOf(' ')+1);
+			s = s.substring(0,leftB[leftB.length-1])+b+s.substring(rightB[0]+2);
+			leftB.pop();
+			rightB.shift();
+		}
+	}
+
+
+	//fix Creator/{{Arrow}} and Creator/WillsonMilgrow
+
+	let words = s.split(" ");
+	let tier1 = [];
+	let tier2 = [];
+	s="";
+	for(let i=0;i<words.length;i++){
+		if(words[i].includes("/") && !words[i].includes(":/")){
+			words[i]=words[i].replace('{{','');
+			words[i]=words[i].replace('}}','');
+			words[i]=words[i].substring(words[i].indexOf('/')+1)+' ';
+
+			if(words[i].includes("''")){
+				tier1.push(words[i]);
+			} else {
+				tier2.push(words[i]);
+			}
+			
+		}
+	}
+	words.unshift(tier2);
+	words.unshift(tier1);
+
+	s = words.join(' ');
+
+	// camelCase => camel Case
+	s = s.replace(/([A-Z])/g, ' $1').trim();
+
+	s=s.toLowerCase();
+
+	s=s.replace('æ','ae');
+	s=s.replace('ş','s');
+	s=s.replace('ı','i');
+	removeA('in');
+	removeA('the');
+	removeA('los');
+	removeA('las');
+	removeA('les');
+	removeA('an');
+	removeA('a');
+	removeA('la');
+	removeA('le');
+	removeA('el');
+	removeA('da');
+	removeA('ye');
+
+	s=s.replace(/\'/g, '');
+	s=s.replace(/\"/g, '');
+	s=s.trim();
+
+	s=s.replace(/\s+/g,'z');
+
+	return s;
+
+	function removeA(word){
+		let letter = s.substring(word.length,word.length+1);
+		let r = /[0-9 ]+/
+		if(s.startsWith(word) && r.test(letter)){
+			s=s.substring(word.length);
+		} else {
+			if(s.startsWith(word.capitalize()+' ')){
+				s=s.reaplce(word.capitalize()+' ','');
+			}
+		}
+	}
+}
+
+String.prototype.capitalize = function() {
+	return this.charAt(0).toUpperCase() + this.slice(1);
+}
+
+function fallbackCopyTextToClipboard(text) {
+  
+	// Avoid scrolling to bottom
+	textArea.style.top = "0";
+	textArea.style.left = "0";
+	textArea.style.position = "fixed";
+
+	document.body.appendChild(textArea);
+	textArea.focus();
+	textArea.select();
+
+	try {
+		var successful = document.execCommand('copy');
+		var msg = successful ? 'successful' : 'unsuccessful';
+		console.log('Fallback: Copying text command was ' + msg);
+	} catch (err) {
+		console.error('Fallback: Oops, unable to copy', err);
+	}
+
+	document.body.removeChild(textArea);
+}
+
+function copyTextToClipboard(text) {
+	text = document.getElementById('output').value;
+	if (!navigator.clipboard) {
+		fallbackCopyTextToClipboard(text);
+		return;
+	}
+
+	navigator.clipboard.writeText(text).then(function() {
+		console.log('Copying to clipboard was successful!');
+	}, function(err) {
+		console.error('Could not copy text: ', err);
+	});
+}
+
+</script>
+</body>
+</html>
