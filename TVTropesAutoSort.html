@@ -274,6 +274,11 @@ function format(str){
 	let rightB = [];
 	let b;
 	let limit = s.length;
+
+	//we'll use these for later
+	tier1 = []; //words in italics
+	tier2 = []; //Media Links
+
 	for(let i=0;i<limit;i++){
 		if(s.substring(i,i+2)=='[['){
 			leftB.push(i);
@@ -287,6 +292,11 @@ function format(str){
 		if(leftB.length !== 0 && rightB.length !== 0) {
 			b = s.substring(leftB[leftB.length-1]+2,rightB[0]);
 			b = b.substring(b.indexOf(' ')+1);
+
+			if(s.substring(leftB[leftB.length-1]-2,rightB[0]+4).includes("''")){
+				tier1.push(b);
+			}
+
 			s = s.substring(0,leftB[leftB.length-1])+b+s.substring(rightB[0]+2);
 			leftB.pop();
 			rightB.shift();
@@ -297,8 +307,7 @@ function format(str){
 	//fix Creator/{{Arrow}} and Creator/WillsonMilgrow
 
 	let words = s.split(" ");
-	let tier1 = [];
-	let tier2 = [];
+
 	s="";
 	for(let i=0;i<words.length;i++){
 		if(words[i].includes("/") && !words[i].includes(":/")){
@@ -314,8 +323,8 @@ function format(str){
 			
 		}
 	}
-	words.unshift(tier2);
-	words.unshift(tier1);
+	words = tier2.concat(words);
+	words = tier1.concat(words);
 
 	s = words.join(' ');
 
