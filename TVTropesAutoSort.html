@@ -336,8 +336,6 @@ function format(str){
 	s=s.toLowerCase();
 
 	s=s.replace('æ','ae');
-	s=s.replace('ş','s');
-	s=s.replace('ı','i');
 	removeA('in');
 	removeA('the');
 	removeA('los');
@@ -369,15 +367,15 @@ function format(str){
 		if(s.startsWith(word) && r.test(letter)){
 			s=s.substring(word.length);
 		} else {
-			if(s.startsWith(word.capitalize()+' ')){
-				s=s.reaplce(word.capitalize()+' ','');
+			if(s.startsWith(capitalize(word)+' ')){
+				s=s.reaplce(capitalize(word)+' ','');
 			}
 		}
 	}
 }
 
-String.prototype.capitalize = function() {
-	return this.charAt(0).toUpperCase() + this.slice(1);
+function capitalize(word) {
+	return word.charAt(0).toUpperCase() + word.slice(1);
 }
 
 function fallbackCopyTextToClipboard(text) {
