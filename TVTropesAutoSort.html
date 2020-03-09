@@ -290,16 +290,18 @@ function format(str){
 		}
 
 		if(leftB.length !== 0 && rightB.length !== 0) {
-			b = s.substring(leftB[leftB.length-1]+2,rightB[0]);
-			b = b.substring(b.indexOf(' ')+1);
+			if(s.substring(leftB[leftB.length-1],rightB[0]).startsWith('[[spoiler:') === false){
+				b = s.substring(leftB[leftB.length-1]+2,rightB[0]);
+				b = b.substring(b.indexOf(' ')+1);
 
-			if(s.substring(leftB[leftB.length-1]-2,rightB[0]+4).includes("''")){
-				tier1.push(b);
+				if(s.substring(leftB[leftB.length-1]-2,rightB[0]+4).includes("''")){
+					tier1.push(b);
+				}
+
+				s = s.substring(0,leftB[leftB.length-1])+b+s.substring(rightB[0]+2);
+				leftB.pop();
+				rightB.shift();
 			}
-
-			s = s.substring(0,leftB[leftB.length-1])+b+s.substring(rightB[0]+2);
-			leftB.pop();
-			rightB.shift();
 		}
 	}
 
