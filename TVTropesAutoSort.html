@@ -122,6 +122,7 @@
 
 
 <script>
+removeCom = false; //in folders
 
 function go(){
 	let userInput=document.getElementById('input').value;
@@ -215,7 +216,7 @@ function sortExamples(input){
 			while(true){
 				i++;
 
-				if( isSub(lines[i]) ){
+				if( isSub(lines[i]) || lines[i-1].endsWith('\\') ){
 					add+='\n'+lines[i];
 				} else {i--;break;}
 			}
@@ -249,6 +250,10 @@ function sortExamples(input){
 
 function isExample(text){
 	text=text.trim();
+	if(text.startsWith("%%") && removeCom === false){
+		text=text.substring(2);
+		text=text.trim();
+	}
 	return text.startsWith('*') && !text.startsWith("**");
 }
 
@@ -260,13 +265,16 @@ function isSub(text){
 	catch(e){
 		return false;
 	}
-	return text.startsWith('**') || text.startsWith('-->') || text.startsWith('--->') || text.startsWith("'''");
+	return text.startsWith('**') || text.startsWith('-->') || text.startsWith('--->') || text.startsWith("'''") || text.startsWith('//');
 }
 
 function format(str){
 	s=str.trim();
 	s=s.slice(s.indexOf('*')+1,(s.indexOf('**')==-1?s.length:s.indexOf('**')));
 	s=s.trim();
+	if(s.startsWith("%%")){
+		s=s.slice(2);
+	}
 
 	//fix [[UsefulNotes/BlockFormat Blockformat]] => Blockformat
 
