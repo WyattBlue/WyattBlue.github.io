@@ -276,26 +276,8 @@ function format(str){
 		s=s.slice(2);
 	}
 	
-	debugger;
-	let s = "la la lah [[spoiler: then he [[everyonedies dies]] helo ]] la la al [[spoiler: then he died]]";
-	while(s.indexOf('[[spoiler:') !== -1){
-		let level = 1;
-		for(let i = s.indexOf('[[spoiler:')+10;false;i++){
-			if(s.indexOf('[[spoiler:') === -1 || i === -1)break;
-			if(s.substring(i).startsWith('[['))level++;
-			if(s.substring(i).startsWith(']]'))level--;
-			console.log(s,i);
-			if(i === s.length || i > s.length){
-				s=s.substring(0,s.indexOf('[[spoiler:'));
-				break;
-			}
-			if(level === 0){
-				//s=s.substring(s.indexOf('[[spoiler:'),i+2);
-				s=s.substring(0,s.indexOf('[[spoiler:'))+s.substring(i+2);
-				break;
-			}
-		}
-	}
+	s = removeTag(s,'[[spoiler:');
+	s = removeTag(s,'[[note:');
 
 	//fix [[UsefulNotes/BlockFormat Blockformat]] => Blockformat
 
@@ -398,6 +380,26 @@ function format(str){
 			}
 		}
 	}
+}
+
+function removeTag(s,type){
+	while(s.indexOf(type) !== -1){
+		let level = 1;
+		let failSafe = s.indexOf(type);
+		for(let i = s.indexOf(type)+10;i<s.length;i++){
+			if(s.indexOf(type) === -1 || i === -1)break;
+			if(s.substring(i).startsWith('[['))level++;
+			if(s.substring(i).startsWith(']]'))level--;
+			if(level === 0){
+				s=s.substring(0,s.indexOf(type))+s.substring(i+2);
+				break;
+			}
+		}
+		if(s.indexOf(type) === failSafe){
+			s=s.substring(0,s.indexOf(type));
+		}	
+	}
+	return s;
 }
 
 function capitalize(word) {
