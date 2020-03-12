@@ -261,6 +261,9 @@ function isExample(text){
 function isSub(text){
 	try {
 		text=text.trim();
+		if(text.startsWith("%%"){
+		   text=text.substring(2);
+		}
 	}
 	catch(e){
 		return false;
