@@ -131,8 +131,11 @@ function go(){
 	let userInput=document.getElementById('input').value;
 
 	let finalOutput='';
+	
+	let onlyExamples = document.getElementById('check1').checked;
+	let onlySubFol = document.getElementById('check2').checked;
 
-	if(document.getElementById('check2').checked === true){
+	if(onlySubFol === true){
 		//convert sudo-folders to real ones
 		let allLines = userInput.split('\n');
 		let isOpen = false;
@@ -154,7 +157,7 @@ function go(){
 	}
 
 
-	if(document.getElementById('check1').checked === false){
+	if(onlyExamples === false){
 		let allLines = userInput.split('\n');
 		if(allLines[allLines.length-1].trim() !== '----'){
 			allLines.push('----');
@@ -189,7 +192,7 @@ function go(){
 		finalOutput=sortExamples(userInput);
 	}
 
-	if(document.getElementById('check2').checked === true){
+	if(onlySubFol === true){
 		//deconvert temporary folders
 		let allLines = finalOutput.split('\n');
 		for(let i=0;i<allLines.length;i++){
