@@ -6,7 +6,7 @@
 	frame.id='test';
 	document.body.append(frame);
 
-	window.setTimeout(partB,2500);
+	window.setTimeout(partB,2000);
 	function partB(){
 		let source = frame.contentWindow.document.body.innerText;
 		console.log(source);
@@ -17,7 +17,9 @@
 		frame2.id='test2';
 		document.body.append(frame2);
 
-		window.setTimeout(partC,2500);
+		if(source.length > 30){
+			window.setTimeout(partC,2000);
+		} else {alert('oh oh');}
 		function partC(){
 			frame2.contentDocument.getElementById('sourceTextarea').value=result;
 
