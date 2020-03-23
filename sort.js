@@ -19,9 +19,9 @@
 
 		window.setTimeout(partC,2500);
 		function partC(){
-			document.getElementById('sourceTextarea').value=result;
+			document.frame2.getElementById('sourceTextarea').value=result;
 
-			frame2.getElementsByClassName('input-edit-reason')[0].value='Examples sorted';
+			document.frame2.getElementsByClassName('input-edit-reason')[0].value='Examples sorted';
 
 			//document.getElementsByTagName('button')[2].click();
 		}
