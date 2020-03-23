@@ -9,7 +9,7 @@
 	window.setTimeout(partB,2500);
 	function partB(){
 		let source = frame.contentWindow.document.body.innerText;
-
+		console.log(source);
 		let result = sortExamples(source);
 
 		let frame2 = document.createElement('iframe');
@@ -23,7 +23,7 @@
 
 			frame2.contentDocument.getElementsByClassName('input-edit-reason')[0].value='Examples sorted';
 
-			//document.getElementsByTagName('button')[2].click();
+			frame2.contentDocument.getElementsByTagName('button')[2].click();
 		}
 	}
 }();
