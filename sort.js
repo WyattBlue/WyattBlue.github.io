@@ -18,12 +18,12 @@
 		document.body.append(frame2);
 
 		window.setTimeout(partC,2500);
-		function partC(){/*
+		function partC(){
 			document.getElementById('sourceTextarea').value=result;
 
 			frame2.getElementsByClassName('input-edit-reason')[0].value='Examples sorted';
 
-			document.getElementsByTagName('button')[2].click();*/
+			//document.getElementsByTagName('button')[2].click();
 		}
 	}
 }();
