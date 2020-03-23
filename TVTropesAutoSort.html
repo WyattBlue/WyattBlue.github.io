@@ -123,7 +123,10 @@
 
 <script>
 removeCom = false; //in folders
-
+	
+document.getElementById('check1').onclick = function() {document.getElementById('check2').checked = false;}
+document.getElementById('check2').onclick = function() {document.getElementById('check1').checked = false;}
+	
 function go(){
 	let userInput=document.getElementById('input').value;
 
