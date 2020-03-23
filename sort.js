@@ -11,6 +11,10 @@
 		let source = frame.contentWindow.document.body.innerText;
 		console.log(source);
 		let result = sortExamples(source);
+		
+		if(result.endsWith('\n----') === false){
+			result+='\n----';	
+		}
 
 		let frame2 = document.createElement('iframe');
 		frame2.src=url+'?action=edit';
