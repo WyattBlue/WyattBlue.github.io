@@ -21,7 +21,7 @@
 		function partC(){/*
 			document.getElementById('sourceTextarea').value=result;
 
-			document.getElementsByClassName('input-edit-reason')[0].value='Examples sorted';
+			frame2.getElementsByClassName('input-edit-reason')[0].value='Examples sorted';
 
 			document.getElementsByTagName('button')[2].click();*/
 		}
