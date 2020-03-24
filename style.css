@@ -1,0 +1,44 @@
+body {
+  background-color: white;
+  background-image: linear-gradient(rgb(90,90,150), rgb(150,90,90));
+  background-size: 100% 100vh;
+  margin:0px;
+  background-repeat: no-repeat;
+ 
+}
+img {
+	width:70px;
+	position:absolute;
+	left:120px;
+}
+
+img:nth-child(1){
+	top:10px;
+	z-index:9;
+}
+
+img:nth-child(2){
+	top:40px;
+	z-index:10;
+}
+
+img:nth-child(3){
+	top:70px;
+	z-index:11;
+}
+img:nth-child(4){
+	top:100px;
+	z-index:12;
+}
+img:nth-child(5){
+	top:130px;
+	z-index:13;
+}
+#g {
+	background-color:green;
+	width:350px;
+	height:350px;
+	position:relative;
+	top:30px;
+	left:30px;
+}
