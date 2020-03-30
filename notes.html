@@ -167,8 +167,8 @@ onmousedown = function(e){
 		menu = (menu+1)%2;
 		if(menu == 1){
 			let menu = document.getElementById('custom-menu');
-			menu.style.left = e.clientX + "px";
-			menu.style.top = e.clientY + "px";
+			menu.style.left = e.clientX+sx + "px";
+			menu.style.top = e.clientY+sy + "px";
 		}
 	}
 	if(e.which == 1){
