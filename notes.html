@@ -101,8 +101,8 @@ catch(e){
 }
 let x;
 let y;
-let sx;
-let sy;
+let sx = 0;
+let sy = 0;
 let rightClick = 0;
 let leftClick = 0;
 let menu = 0;
@@ -156,8 +156,8 @@ function note(t,b,x,y){
 }();
 
 onmousemove = function(e){
-	x = e.clientX;
-	y = e.clientY;
+	x = e.clientX+sy;
+	y = e.clientY+sx;
 }
 
 onmousedown = function(e){
